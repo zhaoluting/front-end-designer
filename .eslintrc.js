@@ -25,26 +25,38 @@ module.exports = {
   },
   // add your custom rules here
   rules: {
-    // don't require .vue extension when importing
-    'import/extensions': ['error', 'always', {
-      js: 'never',
-      vue: 'never'
-    }],
-    // disallow reassignment of function parameters
-    // disallow parameter object manipulation except for specific exclusions
-    'no-param-reassign': ['error', {
-      props: true,
-      ignorePropertyModificationsFor: [
-        'state', // for vuex state
-        'acc', // for reduce accumulators
-        'e' // for e.returnvalue
-      ]
-    }],
-    // allow optionalDependencies
-    'import/no-extraneous-dependencies': ['error', {
-      optionalDependencies: ['test/unit/index.js']
-    }],
-    // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    "vue/no-parsing-error": [2, { "x-invalid-end-tag": false }],
+    "no-underscore-dangle": [
+      "error", 
+      { "allow": ["_d", "_date"] }
+	],
+	'no-param-reassign': 'off', // 允许修改函数引用类型入参
+	'no-plusplus': 'off', // 允许 ++
+	'no-restricted-syntax': [ // 覆盖掉对 for-in 和 for-of 的限制
+		'error',
+		'LabeledStatement',
+		'WithStatement',
+	],
+	"no-shadow": [
+		"error",
+		{ 
+			"allow":
+			["state"] 
+		}
+	],
+	'import/extensions': ['off', 'never'],
+	'indent': ['error', 2],
+	'no-console': 0,
+	'no-debugger': 0,
+	'import/no-extraneous-dependencies': 0,
+	'no-useless-return': 0,
+	'import/no-unresolved': 0,
+	'no-prototype-builtins': 0,
+	'strict': 0,
+	"class-methods-use-this": 0,
+	'no-undef': 0,
+	'no-use-before-define': 0,
+	'no-extend-native': 0,
+	'no-script-url': 0,
   }
 }

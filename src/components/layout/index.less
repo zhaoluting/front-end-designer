@@ -1,0 +1,47 @@
+@keyframes rotating{
+    from{transform:rotate(0)}
+    to{transform:rotate(360deg)}
+}
+.layout{
+    border: 0px solid #d7dde4;
+    background: #f5f7f9;
+}
+.layout-top {
+    .ivu-menu-primary.ivu-menu-horizontal .ivu-menu-item-active {
+        background: #d87675;
+        color: #ffffff;
+    }
+    .ivu-menu-primary.ivu-menu-horizontal .ivu-menu-item:hover, .ivu-menu-primary.ivu-menu-horizontal .ivu-menu-submenu:hover {
+        background: #d87675;
+        color: #ffffff;
+    }
+}
+.layout-logo{
+  float: left;
+  position: relative;
+  left: 20px;
+  top: 5px;
+  font-size: 50px;
+  line-height: 50px;
+  color: #fff;
+  animation:rotating 7s linear infinite;
+}
+.layout-nav{
+    width: 420px;
+    margin: 0 auto;
+}
+.layout-content{
+    min-height: 200px;
+    margin: 15px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 4px;
+}
+.layout-content-main{
+    padding: 10px;
+}
+.layout-copy{
+    text-align: center;
+    padding: 10px 0 20px;
+    color: #9ea7b4;
+}
