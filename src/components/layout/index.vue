@@ -3,12 +3,19 @@
     <Affix class="layout-top">
       <Menu mode="horizontal" theme="primary" active-name="1">
           <div class="layout-logo">
-            <Icon type="ios-flower-outline"></Icon>
+              <self-building-square-spinner
+                :animation-duration="10000"
+                :size="30"
+                color="#fff"
+              />
+          </div>
+          <div class="layout-title">
+            DESIGNER
           </div>
           <div class="layout-nav">
               <Menu-item name="1">
-                <Icon type="aperture"></Icon>
-                  色盘分享
+                <Icon type="aperture" class="rotate-icon"></Icon>
+                  色盘共享
               </Menu-item>
               <Menu-item name="2">
                 <Icon type="easel"></Icon>
@@ -19,19 +26,26 @@
                   个人中心
               </Menu-item>
           </div>
+          <Button type="primary" @click="test">登录</Button>
       </Menu>
     </Affix>
-      <div class="layout-content">
-          内容区域
-      </div>
-      <div class="layout-copy">
-          2011-2016 &copy; TalkingData
-      </div>
   </div>
 </template>
 <style src="./index.less" lang="less"></style>
 <script>
+import { SelfBuildingSquareSpinner } from 'epic-spinners';
+
 export default {
   name: 'layout',
+  components: {
+    SelfBuildingSquareSpinner,
+  },
+  methods: {
+    test() {
+      this.$http.get('/color/getAllColorDisk').then((res) => { // axios返回的数据都在res.data里
+        console.log(res);
+      });
+    },
+  },
 };
 </script>
