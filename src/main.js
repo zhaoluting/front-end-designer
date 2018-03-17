@@ -6,8 +6,8 @@ import Axios from 'axios';
 import 'iview/dist/styles/iview.css'; // 使用 CSS
 import './assets/css/common.less';
 import App from './App';
-import router from './router';
-
+import router from './router/index';
+import store from './router/store.js';
 
 router.beforeEach((to, from, next) => {
   const token = sessionStorage.getItem('demo-token');
@@ -31,6 +31,7 @@ Vue.prototype.$http = Axios; // 类似于vue-resource的调用方法，之后可
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>',
 });

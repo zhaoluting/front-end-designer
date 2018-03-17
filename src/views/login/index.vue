@@ -126,6 +126,8 @@ export default {
       },
     };
   },
+  mounted() {
+  },
   methods: {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
@@ -152,7 +154,9 @@ export default {
     loginFromSub() {
       this.$http.post('/auth/user/postUserAuth', this.loginFrom).then((res) => { // axios返回的数据都在res.data里
         if (res.data.success) { // 如果成功
+          this.$store.commit('setUserInfo', res.data.userInfo);
           sessionStorage.setItem('demo-token', res.data.token); // 用sessionStorage把token存下来
+          localStorage.fontEndUserInfo = JSON.stringify(res.data.userInfo);
           this.$Message.success('登录成功！');
           this.$router.push('/'); // 进入首页，登录成功
         } else {
@@ -170,6 +174,8 @@ export default {
         if (res.data.success) { // 如果成功
           this.$Message.success('注册成功！');
           this.changeCard();
+        } else {
+          this.$Message.error(res.data.info);
         }
       }, (err) => {
         console.log(err);

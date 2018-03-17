@@ -29,10 +29,18 @@ const getUserByName = async (ctx) => {
 
 const createUser = async (ctx) => {
   const data = ctx.request.body;
-  const result = await user.createUser(data);
-  ctx.body = {
-    success: result,
-  };
+  const userInfo = await user.getUserByName(data.userName);
+  if (userInfo !== null) {
+    ctx.body = {
+      success: false,
+      info: '用户名已被注册',
+    };
+  } else {
+    const result = await user.createUser(data);
+    ctx.body = {
+      success: result,
+    };
+  }
 };
 
 const postUserAuth = async (ctx) => {
@@ -57,6 +65,7 @@ const postUserAuth = async (ctx) => {
       ctx.body = {
         success: true,
         token, // 返回token
+        userInfo,
       };
     }
   } else {

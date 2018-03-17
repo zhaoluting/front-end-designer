@@ -1,7 +1,7 @@
 <template>
   <div>
     <layout></layout>
-    少时诵诗书
+    <h1 class="fc-primary">可视化</h1>
   </div>
 </template>
 <script>
@@ -17,6 +17,11 @@ export default {
     };
   },
   methods: {
+    test() {
+      this.$http.get('/color/getAllColorDisk').then((res) => { // axios返回的数据都在res.data里
+        console.log(res);
+      });
+    },
   },
 };
 </script>

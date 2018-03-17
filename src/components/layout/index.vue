@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <Affix class="layout-top">
-      <Menu mode="horizontal" theme="primary" active-name="1">
+      <Menu mode="horizontal" theme="primary" :active-name="activePage">
           <div class="layout-logo">
               <self-building-square-spinner
                 :animation-duration="10000"
@@ -13,20 +13,32 @@
             DESIGNER
           </div>
           <div class="layout-nav">
-              <Menu-item name="1">
+              <Menu-item name="colorPage">
                 <Icon type="aperture" class="rotate-icon"></Icon>
                   色盘共享
               </Menu-item>
-              <Menu-item name="2">
+              <Menu-item name="designerPage">
                 <Icon type="easel"></Icon>
                   设计台
               </Menu-item>
-              <Menu-item name="3">
+              <Menu-item name="personPage">
                 <Icon type="person"></Icon>
                   个人中心
               </Menu-item>
           </div>
-          <Button type="primary" @click="test">登录</Button>
+          <span class="layout-right">
+            <a @click="goToHome" class="right-link">首页</a>
+            <a @click="loginOut" class="right-link">退出</a>
+            <a class="right-link">|</a>
+            <a class="right-link">Hi,{{localUserName.userName}}</a>
+            <span class="right-icon">
+              <Icon type="ios-color-wand" v-if="localUserName.character === 'designer'"></Icon>
+              <Icon type="code-working" v-else-if="localUserName.character === 'developer'"></Icon>
+              <Icon type="android-bulb"
+                    v-else-if="localUserName.character === 'productManager'"></Icon>
+              <Icon type="coffee" v-else></Icon>
+            </span>
+          </span>
       </Menu>
     </Affix>
   </div>
@@ -34,17 +46,43 @@
 <style src="./index.less" lang="less"></style>
 <script>
 import { SelfBuildingSquareSpinner } from 'epic-spinners';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'layout',
   components: {
     SelfBuildingSquareSpinner,
   },
+  data() {
+    return {
+      activePage: '',
+      localUserName: {},
+    };
+  },
+  computed: {
+    ...mapGetters({
+      userInfo: 'userInfo',
+    }),
+  },
+  mounted() {
+    this.localUserName = JSON.parse(localStorage.fontEndUserInfo);
+  },
   methods: {
-    test() {
-      this.$http.get('/color/getAllColorDisk').then((res) => { // axios返回的数据都在res.data里
-        console.log(res);
+    loginOut() {
+      this.$Modal.confirm({
+        title: '退出',
+        content: '<h2>确认退出？</h2>',
+        onOk: () => {
+          sessionStorage.setItem('demo-token', null); // 将token清空
+          this.$router.push('/login');
+        },
+        onCancel: () => {
+          console.log('点击了取消');
+        },
       });
+    },
+    goToHome() {
+      this.$router.push('/');
     },
   },
 };
