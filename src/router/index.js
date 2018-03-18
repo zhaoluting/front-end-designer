@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HomePage from '@/views/homePage/index';
 import Login from '@/views/login/index';
+import ColorPage from '@/views/colorPage/index';
 
 Vue.use(Router);
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login,
+    },
+    {
+      path: '/colorPage',
+      name: 'colorPage',
+      component: ColorPage,
     },
     {
       path: '*',

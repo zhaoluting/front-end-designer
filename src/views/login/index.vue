@@ -58,7 +58,7 @@
                   </Input>
               </Form-item>
               <Form-item prop="password">
-                  <Input v-model="registerFrom.password" placeholder="密码">
+                  <Input v-model="registerFrom.password" type="password" placeholder="密码">
                       <Icon type="ios-locked-outline" slot="prepend"></Icon>
                   </Input>
               </Form-item>
@@ -155,18 +155,18 @@ export default {
       this.$http.post('/auth/user/postUserAuth', this.loginFrom).then((res) => { // axios返回的数据都在res.data里
         if (res.data.success) { // 如果成功
           this.$store.commit('setUserInfo', res.data.userInfo);
-          sessionStorage.setItem('demo-token', res.data.token); // 用sessionStorage把token存下来
+          localStorage.setItem('demo-token', res.data.token); // 用localStorage把token存下来
           localStorage.fontEndUserInfo = JSON.stringify(res.data.userInfo);
           this.$Message.success('登录成功！');
           this.$router.push('/'); // 进入首页，登录成功
         } else {
           this.$Message.error(res.data.info); // 登录失败，显示提示语
-          sessionStorage.setItem('demo-token', null); // 将token清空
+          localStorage.setItem('demo-token', null); // 将token清空
         }
       }, (err) => {
         console.log(err);
         this.$Message.error('请求错误！');
-        sessionStorage.setItem('demo-token', null); // 将token清空
+        localStorage.setItem('demo-token', null); // 将token清空
       });
     },
     registerFromSub() {

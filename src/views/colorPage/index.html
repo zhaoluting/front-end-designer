@@ -1,0 +1,16 @@
+<div class="color-page">
+  <layout></layout>
+  <div class="color-cards">
+      <Card class="single-card" v-for="item in allcolorDisk" :key="item.id">
+          <p slot="title">
+              <Icon type="ios-film-outline"></Icon>
+              经典电影
+          </p>
+          <a href="#" slot="extra" @click.prevent="previewColor">
+              <Icon type="ios-loop-strong"></Icon>
+              换一换
+          </a>
+          {{ item.disk_name }}
+      </Card>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <Affix class="layout-top">
-      <Menu mode="horizontal" theme="primary" :active-name="activePage">
+      <Menu mode="horizontal" theme="primary" :active-name="activePage" @on-select="goToActivePage">
           <div class="layout-logo">
               <self-building-square-spinner
                 :animation-duration="10000"
@@ -27,7 +27,7 @@
               </Menu-item>
           </div>
           <span class="layout-right">
-            <a @click="goToHome" class="right-link">首页</a>
+            <a @click="goToActivePage()" class="right-link">首页</a>
             <a @click="loginOut" class="right-link">退出</a>
             <a class="right-link">|</a>
             <a class="right-link">Hi,{{localUserName.userName}}</a>
@@ -38,6 +38,17 @@
                     v-else-if="localUserName.character === 'productManager'"></Icon>
               <Icon type="coffee" v-else></Icon>
             </span>
+            <!-- <span class="right-icon">
+              <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-shejitu"
+                      v-if="localUserName.character === 'designer'"></use>
+                  <use xlink:href="#icon-daima"
+                      v-else-if="localUserName.character === 'developer'"></use>
+                  <use xlink:href="#icon-chanpin"
+                      v-else-if="localUserName.character === 'productManager'"></use>
+                  <use xlink:href="#icon-kafei" v-else></use>
+              </svg>
+            </span> -->
           </span>
       </Menu>
     </Affix>
@@ -73,7 +84,7 @@ export default {
         title: '退出',
         content: '<h2>确认退出？</h2>',
         onOk: () => {
-          sessionStorage.setItem('demo-token', null); // 将token清空
+          localStorage.setItem('demo-token', null); // 将token清空
           this.$router.push('/login');
         },
         onCancel: () => {
@@ -81,8 +92,8 @@ export default {
         },
       });
     },
-    goToHome() {
-      this.$router.push('/');
+    goToActivePage(key) {
+      this.$router.push(`/${key}`);
     },
   },
 };

@@ -10,7 +10,7 @@ import router from './router/index';
 import store from './router/store.js';
 
 router.beforeEach((to, from, next) => {
-  const token = sessionStorage.getItem('demo-token');
+  const token = localStorage.getItem('demo-token');
   if (to.path === '/login') { // 如果是跳转到登录页的
     if (token !== 'null' && token !== null) next('/'); // 如果有token就转向todolist不返回登录页
     else next();
