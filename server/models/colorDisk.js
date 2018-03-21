@@ -8,7 +8,7 @@ const FEDSQL = db.FEDSQL; // 引入数据库
 
 const colorDisk = FEDSQL.import(colorModel);
 
-const getAllColorDisk = async () => { // 获取某个用户的全部色盘
+const getAllColorDisk = async () => { // 获取全部色盘
   const allDisk = await colorDisk.findAll();// 查找全部的色盘
   return allDisk; // 返回数据
 };

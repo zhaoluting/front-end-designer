@@ -1,6 +1,27 @@
 <div class="person-page">
   <layout></layout>
-  <div>
-    person-page
+  <div class="person-form">
+    <Form :model="userForm" :label-width="70">
+      <Form-item label="用户名">
+        <Input v-model="userForm.userName" placeholder="修改用户名"></Input>
+      </Form-item>
+      <Form-item label="密码">
+        <Input v-model="userForm.password" placeholder="修改密码" type="password"></Input>
+      </Form-item>
+      <Form-item label="邮箱">
+        <Input v-model="userForm.email" placeholder="修改邮箱"></Input>
+      </Form-item>
+      <Form-item label="用户类型">
+        <Select v-model="userForm.character" placeholder="用户类型">
+          <Option label="设计师" value="designer"></Option>
+          <Option label="开发者" value="developer"></Option>
+          <Option label="产品经理" value="productManager"></Option>
+          <Option label="其他" value="other"></Option>
+        </Select>
+      </Form-item>
+      <Form-item>
+        <Button type="primary" @click="onSubmit">保存</Button>
+      </Form-item>
+    </Form>
   </div>
 </div>

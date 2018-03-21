@@ -77,6 +77,8 @@ export default {
   },
   mounted() {
     this.localUserName = JSON.parse(localStorage.fontEndUserInfo);
+    const hash = window.location.hash.split('/');
+    if (hash[1] && hash[1] !== '') this.activePage = hash[1];
   },
   methods: {
     loginOut() {

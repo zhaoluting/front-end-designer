@@ -10,13 +10,24 @@ export default {
   },
   data() {
     return {
-      localUserName: {},
+      localUserInfo: {},
+      userForm: {
+        id: 0,
+        userName: '',
+        password: '',
+        email: '',
+        character: '',
+      },
     };
   },
   mounted() {
-    this.localUserName = JSON.parse(localStorage.fontEndUserInfo);
+    this.localUserInfo = JSON.parse(localStorage.fontEndUserInfo);
+    this.userForm = JSON.parse(localStorage.fontEndUserInfo);
   },
   methods: {
+    onSubmit() {
+      console.log('ddd');
+    },
   },
 };
 </script>

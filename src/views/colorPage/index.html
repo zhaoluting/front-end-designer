@@ -1,7 +1,27 @@
 <div class="color-page">
   <layout></layout>
   <div class="color-search">
-    按时间排序，按热度排序，按关键字搜索
+    <Row>
+      <Col span="6" :offset="8">
+        <Input placeholder="按关键字搜索"></Input>
+      </Col>
+      <Col span="2">
+        <Button type="primary">搜索</Button>
+      </Col>
+      <Col span="4">
+        <span class="search-order">
+          <Icon type="ios-clock-outline"></Icon>
+          <a>按时间排序</a>
+        </span>
+        <span class="search-order">
+          <Icon type="fireball"></Icon>
+          <a>按热度排序</a>
+        </span>
+      </Col>
+      <Col span="2">
+        <Icon type="plus-circled" class="add-button"></Icon>
+      </Col>
+    </Row>
   </div>
   <div class="color-cards">
     <Card class="single-card" v-for="item in allcolorDisk" :key="item.id">
