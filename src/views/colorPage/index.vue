@@ -12,6 +12,23 @@ export default {
     return {
       localUserName: {},
       allcolorDisk: [],
+      diskType: [{
+        type: 1,
+        typeName: '上中型',
+        includ: [['bcg_head', 'fc_head'], ['bcg_content', 'fc_content']],
+      }, {
+        type: 2,
+        typeName: '上左中型',
+        includ: [['bcg_head', 'fc_head'], ['bcg_left', 'fc_left'], ['bcg_content', 'fc_content']],
+      }, {
+        type: 3,
+        typeName: '上中右型',
+        includ: [['bcg_head', 'fc_head'], ['bcg_content', 'fc_content'], ['bcg_right', 'fc_right']],
+      }, {
+        type: 4,
+        typeName: '上左中右型',
+        includ: [['bcg_head', 'fc_head'], ['bcg_left', 'fc_left'], ['bcg_content', 'fc_content'], ['bcg_right', 'fc_right']],
+      }],
     };
   },
   mounted() {

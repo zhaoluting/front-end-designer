@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import HomePage from '@/views/homePage/index';
 import Login from '@/views/login/index';
 import ColorPage from '@/views/colorPage/index';
+import PersonPage from '@/views/personPage/index';
 
 Vue.use(Router);
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/colorPage',
       name: 'colorPage',
       component: ColorPage,
+    },
+    {
+      path: '/personPage',
+      name: 'personPage',
+      component: PersonPage,
     },
     {
       path: '*',

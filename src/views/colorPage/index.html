@@ -1,16 +1,27 @@
 <div class="color-page">
   <layout></layout>
+  <div class="color-search">
+    按时间排序，按热度排序，按关键字搜索
+  </div>
   <div class="color-cards">
-      <Card class="single-card" v-for="item in allcolorDisk" :key="item.id">
-          <p slot="title">
-              <Icon type="ios-film-outline"></Icon>
-              经典电影
-          </p>
-          <a href="#" slot="extra" @click.prevent="previewColor">
-              <Icon type="ios-loop-strong"></Icon>
-              换一换
-          </a>
-          {{ item.disk_name }}
-      </Card>
+    <Card class="single-card" v-for="item in allcolorDisk" :key="item.id">
+      <h3 slot="title">
+        {{ item.disk_name }}
+      </h3>
+      <a href="#" slot="extra" style="font-size:18px" @click.prevent="previewColor">
+        <Icon type="eye"></Icon>
+      </a>
+      <div v-for="color in diskType[item.disk_type - 1].includ"
+          class="cards-content"
+          :style="`background-color:${item[color[0]]};color:${item[color[1]]};`">
+        背景:{{item[color[0]]}};  文字：{{item[color[1]]}}
+      </div>
+      <span class="cards-dec" style="float: left;">
+        布局:{{diskType[item.disk_type - 1].typeName}}
+      </span>
+      <span class="cards-dec" style="float: right;">
+        by:{{item.user_name}}
+      </span>
+    </Card>
   </div>
 </div>
