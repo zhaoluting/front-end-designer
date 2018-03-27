@@ -1,7 +1,7 @@
 <div class="color-page">
   <layout></layout>
-  <div class="color-search">
-    <Row>
+  <Affix :offset-top="60">
+    <Row class="color-search">
       <Col span="6" :offset="8">
         <Input placeholder="按关键字搜索"></Input>
       </Col>
@@ -22,26 +22,43 @@
         <Icon type="plus-circled" class="add-button"></Icon>
       </Col>
     </Row>
-  </div>
+  </Affix>
   <div class="color-cards">
-    <Card class="single-card" v-for="item in allcolorDisk" :key="item.id">
-      <h3 slot="title">
-        {{ item.disk_name }}
-      </h3>
-      <a href="#" slot="extra" style="font-size:18px" @click.prevent="previewColor">
-        <Icon type="eye"></Icon>
-      </a>
-      <div v-for="color in diskType[item.disk_type - 1].includ"
-          class="cards-content"
-          :style="`background-color:${item[color[0]]};color:${item[color[1]]};`">
-        背景:{{item[color[0]]}};  文字：{{item[color[1]]}}
-      </div>
-      <span class="cards-dec" style="float: left;">
-        布局:{{diskType[item.disk_type - 1].typeName}}
-      </span>
-      <span class="cards-dec" style="float: right;">
-        by:{{item.user_name}}
-      </span>
-    </Card>
+    <waterfall :line-gap="285" :watch="allcolorDisk">
+        <waterfall-slot
+          v-for="(item, index) in allcolorDisk"
+          :width="260"
+          :height="`${diskType[item.disk_type].includ.length * 30 + 110}`"
+          :order="index"
+          :key="item.id"
+          move-class="item-move"
+        >
+        <Card class="single-card">
+            <h3 slot="title">
+              {{ item.disk_name }}
+            </h3>
+            <a href="#" slot="extra" style="font-size:18px" @click.prevent="previewColor(index)">
+              <Icon type="eye"></Icon>
+            </a>
+            <div v-for="color in diskType[item.disk_type].includ"
+                class="cards-content"
+                :style="`background-color:${item[color[0]]};color:${item[color[1]]};`">
+              背景:{{item[color[0]]}};  文字：{{item[color[1]]}}
+            </div>
+            <span class="cards-dec" style="float: left;">
+              布局:{{diskType[item.disk_type].typeName}}
+            </span>
+            <span class="cards-dec" style="float: right;">
+              by:{{item.user_name}}
+            </span>
+          </Card>
+        </waterfall-slot>
+      </waterfall>
   </div>
+  <Modal v-model="colorPreviewShow" :width="1000">
+    <colorDialog :color="colorPreview" :disabled="colorPreviewDisabled"></colorDialog>
+    <div slot="footer">
+        <Button type="primary" size="large" long @click="colorPreviewShow=false">关闭</Button>
+    </div>
+  </Modal>
 </div>

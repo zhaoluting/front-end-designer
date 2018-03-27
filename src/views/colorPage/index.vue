@@ -2,33 +2,42 @@
 <style src="./index.less" lang="less"></style>
 <script>
 import layout from '@/components/layout/index';
+import Waterfall from 'vue-waterfall/lib/waterfall';
+import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot';
+import colorDialog from './colorDialog/index';
 
 export default {
   name: 'colorPage',
   components: {
     layout,
+    Waterfall,
+    WaterfallSlot,
+    colorDialog,
   },
   data() {
     return {
       localUserName: {},
       allcolorDisk: [],
       diskType: [{
-        type: 1,
+        type: 0,
         typeName: '上中型',
         includ: [['bcg_head', 'fc_head'], ['bcg_content', 'fc_content']],
       }, {
-        type: 2,
+        type: 1,
         typeName: '上左中型',
         includ: [['bcg_head', 'fc_head'], ['bcg_left', 'fc_left'], ['bcg_content', 'fc_content']],
       }, {
-        type: 3,
+        type: 2,
         typeName: '上中右型',
         includ: [['bcg_head', 'fc_head'], ['bcg_content', 'fc_content'], ['bcg_right', 'fc_right']],
       }, {
-        type: 4,
+        type: 3,
         typeName: '上左中右型',
         includ: [['bcg_head', 'fc_head'], ['bcg_left', 'fc_left'], ['bcg_content', 'fc_content'], ['bcg_right', 'fc_right']],
       }],
+      colorPreviewShow: false,
+      colorPreview: {},
+      colorPreviewDisabled: true,
     };
   },
   mounted() {
@@ -41,8 +50,10 @@ export default {
         this.allcolorDisk = res.data.result;
       });
     },
-    previewColor() {
-      console.log('qqq');
+    previewColor(index) {
+      this.colorPreview = this.allcolorDisk[index];
+      this.colorPreview.diskTypeNum = this.diskType[this.allcolorDisk[index].disk_type];
+      this.colorPreviewShow = true;
     },
   },
 };

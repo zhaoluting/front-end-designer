@@ -1,7 +1,8 @@
 .color-page {
     width: 100%;
     .color-search {
-        margin: 30px 20px;
+        padding: 12px;
+        background-color: #ffffffcc;
         .search-order {
             margin-right: 8px;
             line-height: 32px;
@@ -21,13 +22,17 @@
             transform: rotate(180deg);
         }
     }
+    .item-move {
+        transition: all .5s cubic-bezier(.55,0,.1,1);
+        -webkit-transition: all .5s cubic-bezier(.55,0,.1,1);
+    }
     .color-cards {
         width: 90%;
         margin: auto;
-        background-color: #e78686;
+        // background-color: #e78686;
         .single-card {
             width: 260px;
-            margin: 10px;
+            margin: 15px;
             float: left;
             .cards-content {
                 width: 100%;
