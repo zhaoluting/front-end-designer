@@ -18,6 +18,9 @@ export default {
       editDetial: false,
       fontEndUserInfo: {},
       colorDetial: {},
+      editColorType: 'bcg',
+      editColor: 'head',
+      editCheck: 0,
     };
   },
   watch: {
@@ -64,6 +67,10 @@ export default {
         this.$emit('cancel');
         this.editDetial = false;
       }
+    },
+    changeColor(includ, index) {
+      this.editColor = includ[0].split('_')[1];
+      this.editCheck = index;
     },
   },
 };

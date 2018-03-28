@@ -41,12 +41,23 @@
             <span v-else>{{diskTypeNum[colorDetial.disk_type] && diskTypeNum[colorDetial.disk_type].typeName}}</span>
         </p>
         <p class="detial-row"><h4>作者：</h4>{{colorDetial.user_name}}</p>
-        <p class="detial-row"
+        <p  class="detial-row"
             v-for="(includ, index) in diskTypeNum[colorDetial.disk_type].includ"
-            :style="`background-color:${color[includ[0]]};color:${color[includ[1]]};`">
-            <span class="detial-col">底:{{color[includ[0]]}}</span>
-            <span class="detial-col">字:{{color[includ[1]]}}</span>
+            @click="changeColor(includ, index)"
+            :style="`background-color:${colorDetial[includ[0]]};color:${colorDetial[includ[1]]};`">
+            <span class="detial-col">底:{{colorDetial[includ[0]]}}</span>
+            <span class="detial-col">字:{{colorDetial[includ[1]]}}</span>
+            <Icon v-if="(editCheck===index) && editDetial" class="detial-icon" type="checkmark-circled"></Icon>
         </p>
-        <!-- <colorPicker v-model="colorDetial.bcg_head" :disabled="!editDetial"></colorPicker> -->
+        <span v-if="editDetial">
+            <p class="detial-row" >
+                <Radio-group v-model="editColorType">
+                    <Radio label="bcg">底</Radio>
+                    <Radio label="fc">字</Radio>
+                </Radio-group>
+            </p>
+            <colorPicker class="detial-picker" v-model="colorDetial[`${editColorType}_${editColor}`]" :disabled="!editDetial"></colorPicker>
+            <Input class="detial-input" size="small" v-model="colorDetial[`${editColorType}_${editColor}`]"></Input>
+        </span>
     </div>
 </div>

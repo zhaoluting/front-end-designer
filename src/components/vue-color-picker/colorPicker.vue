@@ -204,7 +204,7 @@ export default {
   position: relative; text-align: left; font-size: 14px; display: inline-block;
   ul,li,ol{ list-style: none; margin: 0; padding: 0; }
   input{ display: none; }
-  .colorBtn{ width: 15px; height: 15px; }
+  .colorBtn{ width: 25px; height: 25px; }
   .colorBtn.disabled{ cursor: no-drop; }
   .box{
     position: absolute; width: 215px; background: #fff; border: 1px solid #ddd; visibility: hidden; border-radius: 2px; margin-top: 2px; padding: 10px; padding-bottom: 5px; box-shadow: 0 0 5px rgba(0,0,0,.15); opacity: 0; transition: all .3s ease;
