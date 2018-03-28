@@ -7,7 +7,6 @@ export default {
   name: 'colorDialog',
   props: {
     color: Object,
-    disabled: Boolean,
     diskTypeNum: Array,
     show: Boolean,
   },
@@ -18,40 +17,51 @@ export default {
     return {
       editDetial: false,
       fontEndUserInfo: {},
-      colorDetial: {
-        bcg_content: '',
-        bcg_head: '',
-        bcg_left: '',
-        bcg_right: '',
-        disk_name: '',
-        disk_type: 0,
-        fc_content: '',
-        fc_head: '',
-        fc_left: '',
-        fc_right: '',
-        hot_view: 0,
-        primary_color: '',
-        user_id: '',
-        user_name: '',
-      },
+      colorDetial: {},
     };
   },
-  watch: {},
+  watch: {
+    show() {
+      if (this.color.user_name) {
+        this.colorDetial = JSON.parse(JSON.stringify(this.color));
+      } else {
+        this.colorDetial = {
+          bcg_content: '',
+          bcg_head: '',
+          bcg_left: '',
+          bcg_right: '',
+          disk_name: '',
+          disk_type: 0,
+          fc_content: '',
+          fc_head: '',
+          fc_left: '',
+          fc_right: '',
+          hot_view: 0,
+          primary_color: '',
+          user_id: this.fontEndUserInfo.id,
+          user_name: this.fontEndUserInfo.userName,
+        };
+      }
+      this.editDetial = !(this.color.id);
+    },
+  },
   computed: {
   },
   mounted() {
     this.fontEndUserInfo = JSON.parse(localStorage.fontEndUserInfo);
+    this.colorDetial.user_name = this.fontEndUserInfo.userName;
+    this.colorDetial.user_id = this.fontEndUserInfo.id;
   },
   methods: {
     switchEditDetial() {
       this.editDetial = true;
-      this.colorDetial = JSON.parse(JSON.stringify(this.color));
     },
     closeColor(isSub) {
       if (isSub) {
+        this.$emit('subColor', this.colorDetial);
         this.editDetial = false;
       } else {
-        this.color = JSON.parse(JSON.stringify(this.colorDetial));
+        this.$emit('cancel');
         this.editDetial = false;
       }
     },

@@ -30,7 +30,7 @@
         </span>
       </Col>
       <Col span="2">
-        <Icon type="plus-circled" class="add-button"></Icon>
+        <Icon @click.native="previewColor('new')" type="plus-circled" class="add-button"></Icon>
       </Col>
     </Row>
   </Affix>
@@ -49,8 +49,8 @@
               {{ item.disk_name }}
             </h3>
             <span slot="extra" @click.prevent="previewColor(index)">
+              <span style="font-size:12px;color:#b3b3b3">{{ item.hot_view }}</span>
               <a href="#" style="font-size:18px"><Icon type="eye"></Icon></a>
-              <span style="line-height:18px">{{ item.hot_view }}</span>
             </span>
             <div v-for="color in diskType[item.disk_type].includ"
                 class="cards-content"
@@ -67,10 +67,10 @@
         </waterfall-slot>
       </waterfall>
   </div>
-  <Modal v-model="colorPreviewShow" :width="1000">
-    <colorDialog :color="colorPreview" :disabled="colorPreviewDisabled" :diskTypeNum="diskType" :show="colorPreviewShow"></colorDialog>
+  <Modal v-model="colorPreviewShow" :width="1000" @on-cancel="colorPreviewShow = false">
+    <colorDialog :color="colorPreview" :diskTypeNum="diskType" :show="colorPreviewShow"></colorDialog>
     <div slot="footer">
-        <Button type="primary" size="large" long @click="colorPreviewShow=false">关闭</Button>
+        <Button type="primary" size="large" long @click="colorPreviewShow = false">关闭</Button>
     </div>
   </Modal>
 </div>

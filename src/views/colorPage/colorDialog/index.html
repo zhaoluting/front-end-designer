@@ -1,26 +1,26 @@
 <div class="color-dialog" v-if="show">
     <div class="color-box">
         <div class="color-top"
-            :style="`background-color: ${color.bcg_head};color:${color.fc_head}`">
+            :style="`background-color: ${colorDetial.bcg_head};color:${colorDetial.fc_head}`">
             标题
         </div>
         <div class="color-content"
-            :style="`background-color: ${color.bcg_content};color:${color.fc_content}`">
+            :style="`background-color: ${colorDetial.bcg_content};color:${colorDetial.fc_content}`">
             <span>主体内容</span>
             <span class="color-left"
-                v-if="color.disk_type === 1 || color.disk_type === 3"
-                :style="`background-color: ${color.bcg_left};color:${color.fc_left}`">
+                v-if="colorDetial.disk_type === 1 || colorDetial.disk_type === 3"
+                :style="`background-color: ${colorDetial.bcg_left};color:${colorDetial.fc_left}`">
                 左侧边栏
             </span>
             <span class="color-right"
-                v-if="color.disk_type === 2 || color.disk_type === 3"
-                :style="`background-color: ${color.bcg_right};color:${color.fc_right}`">
+                v-if="colorDetial.disk_type === 2 || colorDetial.disk_type === 3"
+                :style="`background-color: ${colorDetial.bcg_right};color:${colorDetial.fc_right}`">
                 右侧边栏
             </span>
         </div>
     </div>
     <div class="color-detial">
-        <span v-if="fontEndUserInfo.id === color.user_id">
+        <span v-if="fontEndUserInfo.id === colorDetial.user_id">
             <Button-group v-if="editDetial" class="fl-right" size="small">
                 <Button type="primary" @click="closeColor(true)">保存</Button>
                 <Button @click="closeColor(false)">取消</Button>
@@ -30,23 +30,23 @@
         <br/>
         <p class="detial-row">
             <h4>色盘名称：</h4>
-            <Input v-if="editDetial" size="small" v-model="color.disk_name"></Input>
-            <span v-else>{{color.disk_name}}</span>
+            <Input v-if="editDetial" size="small" v-model="colorDetial.disk_name"></Input>
+            <span v-else>{{colorDetial.disk_name}}</span>
         </p>
         <p class="detial-row">
             <h4>色盘类型：</h4>
-            <Select v-if="editDetial" size="small" v-model="color.disk_type">
+            <Select v-if="editDetial" size="small" v-model="colorDetial.disk_type">
                 <Option v-for="item in diskTypeNum" :value="item.type" :key="item.type">{{ item.typeName }}</Option>
             </Select>
-            <span v-else>{{diskTypeNum[color.disk_type] && diskTypeNum[color.disk_type].typeName}}</span>
+            <span v-else>{{diskTypeNum[colorDetial.disk_type] && diskTypeNum[colorDetial.disk_type].typeName}}</span>
         </p>
-        <p class="detial-row"><h4>作者：</h4>{{color.user_name}}</p>
+        <p class="detial-row"><h4>作者：</h4>{{colorDetial.user_name}}</p>
         <p class="detial-row"
-            v-for="(includ, index) in diskTypeNum[color.disk_type].includ"
+            v-for="(includ, index) in diskTypeNum[colorDetial.disk_type].includ"
             :style="`background-color:${color[includ[0]]};color:${color[includ[1]]};`">
             <span class="detial-col">底:{{color[includ[0]]}}</span>
             <span class="detial-col">字:{{color[includ[1]]}}</span>
         </p>
-        <!-- <colorPicker v-model="color.bcg_head" :disabled="!editDetial"></colorPicker> -->
+        <!-- <colorPicker v-model="colorDetial.bcg_head" :disabled="!editDetial"></colorPicker> -->
     </div>
 </div>

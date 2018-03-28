@@ -37,7 +37,6 @@ export default {
       }],
       colorPreviewShow: false,
       colorPreview: {},
-      colorPreviewDisabled: true,
     };
   },
   mounted() {
@@ -51,7 +50,7 @@ export default {
       });
     },
     previewColor(index) {
-      this.colorPreview = this.allcolorDisk[index];
+      this.colorPreview = (index !== 'new') ? this.allcolorDisk[index] : {};
       this.colorPreviewShow = true;
     },
   },
