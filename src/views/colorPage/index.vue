@@ -52,7 +52,6 @@ export default {
     },
     previewColor(index) {
       this.colorPreview = this.allcolorDisk[index];
-      this.colorPreview.diskTypeNum = this.diskType[this.allcolorDisk[index].disk_type];
       this.colorPreviewShow = true;
     },
   },

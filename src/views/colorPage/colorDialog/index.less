@@ -1,37 +1,54 @@
 .color-dialog {
-    width: 80%;
-    margin: 10px auto;
-    font-weight: 900;
-    font-size: 18px;
-    .color-top {
-        display: block;
-        height: 50px;
-        padding: 10px;
-    }
-    .color-content {
-        display: block;
-        position: relative;
-        height: 400px;
-        text-align: center;
+    padding: 20px;
+    .color-box {
+        display: inline-block;
+        width: 80%;
+        margin: 10px auto;
+        font-weight: 900;
         font-size: 18px;
-        line-height: 50px;
-        .color-left {
-            display: inline-block;
-            position: absolute;
-            left: 0;
-            height: 400px;
-            width: 140px;
-            font-size: 18px;
-            line-height: 50px
+        .color-top {
+            display: block;
+            height: 50px;
+            padding: 10px;
         }
-        .color-right {
-            display: inline-block;
-            position: absolute;
-            right: 0;
+        .color-content {
+            display: block;
+            position: relative;
             height: 400px;
-            width: 140px;
+            text-align: center;
             font-size: 18px;
-            line-height: 50px
+            line-height: 50px;
+            .color-left {
+                display: inline-block;
+                position: absolute;
+                left: 0;
+                height: 400px;
+                width: 140px;
+                font-size: 18px;
+                line-height: 50px
+            }
+            .color-right {
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                height: 400px;
+                width: 140px;
+                font-size: 18px;
+                line-height: 50px
+            }
+        }
+    }
+    .color-detial {
+        float: right;
+        width: 19%;
+        font-size: 13px;
+        margin-top: 20px;
+        .detial-row {
+            line-height: 30px;
+            margin-top: 15px;
+            .detial-col {
+                padding-left: 8px;
+            }
         }
     }
 }

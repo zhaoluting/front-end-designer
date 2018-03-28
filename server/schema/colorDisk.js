@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     disk_type: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
-      defaultValue: '1',
+      defaultValue: '0',
     },
     bcg_head: {
       type: DataTypes.CHAR(20),
@@ -62,6 +62,11 @@ module.exports = (sequelize, DataTypes) => {
     primary_color: {
       type: DataTypes.CHAR(20),
       allowNull: true,
+    },
+    hot_view: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      defaultValue: '0',
     },
   }, {
     tableName: 'colorDisk',
