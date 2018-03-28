@@ -56,21 +56,31 @@ export default {
     this.colorDetial.user_id = this.fontEndUserInfo.id;
   },
   methods: {
-    switchEditDetial() {
-      this.editDetial = true;
-    },
     closeColor(isSub) {
       if (isSub) {
-        this.$emit('subColor', this.colorDetial);
-        this.editDetial = false;
+        if (this.colorDetial.id) this.newColorDisk('updateColorDisk', '更新');
+        else this.newColorDisk('createColorDisk', '创建');
       } else {
-        this.$emit('cancel');
-        this.editDetial = false;
+        this.colorDetial = JSON.parse(JSON.stringify(this.color));
       }
+      this.editDetial = false;
     },
     changeColor(includ, index) {
       this.editColor = includ[0].split('_')[1];
       this.editCheck = index;
+    },
+    newColorDisk(url, text) {
+      this.$http.post(`/color/${url}`, this.colorDetial).then((res) => {
+        if (res.data.success) { // 如果成功
+          this.$Message.success(`${text}成功！`);
+          this.$emit('subColor', this.colorDetial);
+        } else {
+          this.$Message.error(`${text}失败！`);
+        }
+      }, (err) => {
+        console.log(err);
+        this.$Message.error('请求错误！');
+      });
     },
   },
 };

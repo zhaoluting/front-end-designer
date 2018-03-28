@@ -24,10 +24,23 @@ const getColorDiskByUserId = async (id) => { // 获取某个用户的全部色�
 };
 
 const createColorDisk = async (data) => { // 给某个用户创建一色盘
-  await colorDisk.create({
-    user_id: data.user_id, // 用户的id，用来确定给哪个用户创建
-    disk_name: data.disk_name,
+  await colorDisk.create(data);
+  return true;
+};
+
+const removeColorDisk = async (id) => {
+  await colorDisk.destroy({
+    where: {
+      id,
+    },
   });
+
+  return true;
+};
+
+const updateColorDisk = async (data) => {
+  await colorDisk.update(data);
+
   return true;
 };
 
@@ -35,4 +48,6 @@ module.exports = {
   getAllColorDisk,
   getColorDiskByUserId,
   createColorDisk,
+  removeColorDisk,
+  updateColorDisk,
 };

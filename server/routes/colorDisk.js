@@ -6,5 +6,7 @@ const router = require('koa-router')();
 router.get('/getAllColorDisk', colorDisk.getAllColorDisk);
 router.get('/getColorDiskByUserId/:userId', colorDisk.getColorDiskByUserId);
 router.post('/createColorDisk', colorDisk.createColorDisk);
+router.delete('/removeColorDisk/:id', colorDisk.removeColorDisk);
+router.post('/updateColorDisk', colorDisk.updateColorDisk);
 
 module.exports = router; // 导出router规则

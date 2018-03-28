@@ -26,8 +26,28 @@ const createColorDisk = async (ctx) => { // 给某个用户创建一色盘
   };
 };
 
+const removeColorDisk = async (ctx) => {
+  const id = ctx.params.id;
+  const result = await colorModel.removeColorDisk(id);
+
+  this.body = {
+    success: result,
+  };
+};
+
+const updateColorDisk = async (ctx) => {
+  const data = ctx.request.body;
+  const result = await colorModel.updateColorDisk(data);
+
+  this.body = {
+    success: result,
+  };
+};
+
 module.exports = {
   getAllColorDisk,
   getColorDiskByUserId,
   createColorDisk,
+  removeColorDisk,
+  updateColorDisk,
 };

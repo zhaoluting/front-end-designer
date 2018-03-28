@@ -24,7 +24,7 @@ const getUserByName = async (name) => {
   return userInfo;
 };
 
-const createUser = async (data) => { // 给某个用户创建一色盘
+const createUser = async (data) => { // 创建一个用户创建
   await User.create(data);
   return true;
 };

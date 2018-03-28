@@ -68,7 +68,7 @@
       </waterfall>
   </div>
   <Modal v-model="colorPreviewShow" :width="1000" @on-cancel="colorPreviewShow = false">
-    <colorDialog :color="colorPreview" :diskTypeNum="diskType" :show="colorPreviewShow"></colorDialog>
+    <colorDialog :color="colorPreview" :diskTypeNum="diskType" :show="colorPreviewShow" @subColor="subColor"></colorDialog>
     <div slot="footer">
         <Button type="primary" size="large" long @click="colorPreviewShow = false">关闭</Button>
     </div>

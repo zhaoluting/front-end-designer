@@ -53,6 +53,10 @@ export default {
       this.colorPreview = (index !== 'new') ? this.allcolorDisk[index] : {};
       this.colorPreviewShow = true;
     },
+    subColor() {
+      this.getAllColorDisk();
+      this.colorPreviewShow = false;
+    },
   },
 };
 </script>
