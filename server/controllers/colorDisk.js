@@ -30,7 +30,7 @@ const removeColorDisk = async (ctx) => {
   const id = ctx.params.id;
   const result = await colorModel.removeColorDisk(id);
 
-  this.body = {
+  ctx.body = {
     success: result,
   };
 };
@@ -39,7 +39,7 @@ const updateColorDisk = async (ctx) => {
   const data = ctx.request.body;
   const result = await colorModel.updateColorDisk(data);
 
-  this.body = {
+  ctx.body = {
     success: result,
   };
 };

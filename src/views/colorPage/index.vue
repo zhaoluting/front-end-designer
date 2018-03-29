@@ -37,6 +37,8 @@ export default {
       }],
       colorPreviewShow: false,
       colorPreview: {},
+      orderBy: 'time',
+      ordertype: 'desc',
     };
   },
   mounted() {
@@ -50,7 +52,12 @@ export default {
       });
     },
     previewColor(index) {
-      this.colorPreview = (index !== 'new') ? this.allcolorDisk[index] : {};
+      if (index !== 'new') {
+        this.colorPreview = this.allcolorDisk[index];
+        this.allcolorDisk[index].hot_view = this.allcolorDisk[index].hot_view + 1;
+      } else {
+        this.colorPreview = {};
+      }
       this.colorPreviewShow = true;
     },
     subColor() {

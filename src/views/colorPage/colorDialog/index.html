@@ -22,10 +22,13 @@
     <div class="color-detial">
         <span v-if="fontEndUserInfo.id === colorDetial.user_id">
             <Button-group v-if="editDetial" class="fl-right" size="small">
-                <Button type="primary" @click="closeColor(true)">保存</Button>
-                <Button @click="closeColor(false)">取消</Button>
+                <Button type="primary" @click="closeColor('true')">保存</Button>
+                <Button @click="closeColor('false')">取消</Button>
             </Button-group>
-            <Button v-else type="primary" size="small" icon="edit" @click="editDetial = true" class="fl-right">修改</Button>
+            <Button-group v-else class="fl-right" size="small">
+                <Button type="primary" size="small" @click="editDetial = true">修改</Button>
+                <Button type="primary" size="small" @click="delColorDisk">删除</Button>
+            </Button-group>
         </span>
         <br/>
         <p class="detial-row">

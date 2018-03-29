@@ -16,7 +16,20 @@
         </Button-group>
       </Col>
       <Col span="4">
-        <span class="search-order">
+        <Radio-group v-model="orderBy" class="search-order" type="button" size="small">
+          <Radio label="time">
+            <Icon type="arrow-up-c" v-if="orderBy==='time' && ordertype==='asc'"></Icon>
+            <Icon type="arrow-down-c" v-if="orderBy==='time' && ordertype==='desc'"></Icon>
+            时间
+          </Radio>
+          <Radio label="hot">
+              <Icon type="arrow-up-c" v-if="orderBy==='hot' && ordertype==='asc'"></Icon>
+              <Icon type="arrow-down-c" v-if="orderBy==='hot' && ordertype==='desc'"></Icon>
+              热度
+          </Radio>
+          <Radio label="userId">我的</Radio>
+        </Radio-group>
+        <!-- <span class="search-order">
           <Icon type="happy-outline"></Icon>
           <a>我的</a>
         </span>
@@ -27,7 +40,7 @@
         <span class="search-order">
           <Icon type="fireball"></Icon>
           <a>按热度排序</a>
-        </span>
+        </span> -->
       </Col>
       <Col span="2">
         <Icon @click.native="previewColor('new')" type="plus-circled" class="add-button"></Icon>

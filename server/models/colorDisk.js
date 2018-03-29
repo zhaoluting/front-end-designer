@@ -39,7 +39,11 @@ const removeColorDisk = async (id) => {
 };
 
 const updateColorDisk = async (data) => {
-  await colorDisk.update(data);
+  await colorDisk.update(data, {
+    where: {
+      id: data.id,
+    },
+  });
 
   return true;
 };
