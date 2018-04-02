@@ -21,6 +21,7 @@ export default {
       editColorType: 'bcg',
       editColor: 'head',
       editCheck: 0,
+      colorType: ['上', '中'],
     };
   },
   watch: {
@@ -73,6 +74,23 @@ export default {
     changeColor(includ, index) {
       this.editColor = includ[0].split('_')[1];
       this.editCheck = index;
+    },
+    changeDiskType(value) {
+      if (value === 'checkBox') {
+        for (const item of this.diskTypeNum) {
+          let flag = true;
+          if (item.simple.length === this.colorType.length) {
+            for (const i of this.colorType) {
+              if (item.simple.indexOf(i) < 0) flag = false;
+            }
+            if (flag) {
+              this.colorDetial.disk_type = item.type;
+            }
+          }
+        }
+      } else {
+        this.colorType = this.diskTypeNum[value].simple;
+      }
     },
     newColorDisk(url, text, isMessage) {
       this.$http.post(`/color/${url}`, this.colorDetial).then((res) => {

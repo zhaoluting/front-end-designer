@@ -8,17 +8,17 @@
             :style="`background-color: ${colorDetial.bcg_content};color:${colorDetial.fc_content}`">
             <span>主体内容</span>
             <span class="color-left"
-                v-if="diskTypeNum[colorDetial.disk_type].simple.indexOf('left') > -1"
+                v-if="diskTypeNum[colorDetial.disk_type].simple.indexOf('左') > -1"
                 :style="`background-color: ${colorDetial.bcg_left};color:${colorDetial.fc_left}`">
                 左侧边栏
             </span>
             <span class="color-right"
-                v-if="diskTypeNum[colorDetial.disk_type].simple.indexOf('right') > -1"
+                v-if="diskTypeNum[colorDetial.disk_type].simple.indexOf('右') > -1"
                 :style="`background-color: ${colorDetial.bcg_right};color:${colorDetial.fc_right}`">
                 右侧边栏
             </span>
             <span class="color-foot"
-                v-if="diskTypeNum[colorDetial.disk_type].simple.indexOf('foot') > -1"
+                v-if="diskTypeNum[colorDetial.disk_type].simple.indexOf('下') > -1"
                 :style="`background-color: ${colorDetial.bcg_foot};color:${colorDetial.fc_foot}`">
                 底部
             </span>
@@ -43,10 +43,15 @@
         </p>
         <p class="detial-row">
             <h4>色盘类型：</h4>
-            <Select v-if="editDetial" size="small" v-model="colorDetial.disk_type">
+            <Select v-if="editDetial" size="small" v-model="colorDetial.disk_type" @on-change="changeDiskType">
                 <Option v-for="item in diskTypeNum" :value="item.type" :key="item.type">{{ item.typeName }}</Option>
             </Select>
             <span v-else>{{diskTypeNum[colorDetial.disk_type] && diskTypeNum[colorDetial.disk_type].typeName}}</span>
+            <Checkbox-group v-if="editDetial" v-model="colorType" @on-change="changeDiskType('checkBox')">
+                <Checkbox label="左"></Checkbox>
+                <Checkbox label="右"></Checkbox>
+                <Checkbox label="下"></Checkbox>
+            </Checkbox-group>
         </p>
         <p class="detial-row"><h4>作者：</h4>{{colorDetial.user_name}}</p>
         <p  class="detial-row"

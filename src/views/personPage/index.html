@@ -1,6 +1,23 @@
 <div class="person-page">
   <layout ref="layoutHead"></layout>
-  <div class="person-form">
+  <Card class="person-card">
+    <p slot="title">个人资料</p>
+    <a href="#" slot="extra" @click.prevent="modalShow = true" style="font-size: 12px;">
+        <Icon type="edit"></Icon>
+        修改
+    </a>
+    <Form :label-width="70">
+      <Form-item label="用户名:">{{userForm.userName}}</Form-item>
+      <Form-item label="密码:">{{userForm.password}}</Form-item>
+      <Form-item label="邮箱:">{{userForm.email}}</Form-item>
+      <Form-item label="用户类型:">{{characterList[userForm.character]}}</Form-item>
+    </Form>
+  </Card>
+  <Card class="program-card">
+    <p slot="title">设计台管理</p>
+    <Table :columns="programColumns" :data="programList"></Table>
+  </Card>
+  <Modal v-model="modalShow" title="修改个人资料" @on-ok="onSubmit" @on-cancel="modalShow = false">
     <Form :model="userForm" :label-width="70">
       <Form-item label="用户名">
         <Input v-model="userForm.userName" placeholder="修改用户名"></Input>
@@ -19,9 +36,6 @@
           <Option label="其他" value="other"></Option>
         </Select>
       </Form-item>
-      <Form-item>
-        <Button type="primary" @click="onSubmit">保存</Button>
-      </Form-item>
     </Form>
-  </div>
+  </Modal>
 </div>

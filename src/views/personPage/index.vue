@@ -10,6 +10,7 @@ export default {
   },
   data() {
     return {
+      modalShow: false,
       userForm: {
         id: 0,
         userName: '',
@@ -17,6 +18,21 @@ export default {
         email: '',
         character: '',
       },
+      characterList: {
+        designer: '设计师',
+        developer: '开发者',
+        productManager: '产品经理',
+        other: '其他',
+      },
+      programColumns: [{
+        title: '设计台名称',
+        key: 'name',
+      },
+      {
+        title: '地址',
+        key: 'age',
+      }],
+      programList: [],
     };
   },
   mounted() {
@@ -29,6 +45,7 @@ export default {
           this.$Message.success('保存成功！');
           localStorage.fontEndUserInfo = JSON.stringify(this.userForm);
           this.$refs.layoutHead.updateUser();
+          this.modalShow = false;
         } else {
           this.$Message.error('保存失败！');
         }
