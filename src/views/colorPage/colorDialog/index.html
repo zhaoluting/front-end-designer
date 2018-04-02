@@ -8,14 +8,19 @@
             :style="`background-color: ${colorDetial.bcg_content};color:${colorDetial.fc_content}`">
             <span>主体内容</span>
             <span class="color-left"
-                v-if="colorDetial.disk_type === 1 || colorDetial.disk_type === 3"
+                v-if="diskTypeNum[colorDetial.disk_type].simple.indexOf('left') > -1"
                 :style="`background-color: ${colorDetial.bcg_left};color:${colorDetial.fc_left}`">
                 左侧边栏
             </span>
             <span class="color-right"
-                v-if="colorDetial.disk_type === 2 || colorDetial.disk_type === 3"
+                v-if="diskTypeNum[colorDetial.disk_type].simple.indexOf('right') > -1"
                 :style="`background-color: ${colorDetial.bcg_right};color:${colorDetial.fc_right}`">
                 右侧边栏
+            </span>
+            <span class="color-foot"
+                v-if="diskTypeNum[colorDetial.disk_type].simple.indexOf('foot') > -1"
+                :style="`background-color: ${colorDetial.bcg_foot};color:${colorDetial.fc_foot}`">
+                底部
             </span>
         </div>
     </div>

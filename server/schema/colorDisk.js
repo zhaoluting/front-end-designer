@@ -59,6 +59,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.CHAR(20),
       allowNull: true,
     },
+    bcg_foot: {
+      type: DataTypes.CHAR(20),
+      allowNull: true,
+    },
+    fc_foot: {
+      type: DataTypes.CHAR(20),
+      allowNull: true,
+    },
     primary_color: {
       type: DataTypes.CHAR(20),
       allowNull: true,
