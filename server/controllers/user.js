@@ -76,9 +76,20 @@ const postUserAuth = async (ctx) => {
   }
 };
 
+
+const updateUser = async (ctx) => {
+  const data = ctx.request.body;
+  const result = await user.updateUser(data);
+
+  ctx.body = {
+    success: result,
+  };
+};
+
 module.exports = {
   getUserById,
   postUserAuth,
   getUserByName,
   createUser,
+  updateUser,
 };

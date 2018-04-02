@@ -11,9 +11,9 @@ const getAllColorDisk = async (ctx) => { // 获取所有色盘
   }; // 将请求的结果放到response的body里返回
 };
 
-const getColorDiskByUserId = async (ctx) => { // 获取某个用户的所有色盘
+const getQueryColorDisk = async (ctx) => { // 获取某个用户的所有色盘
   const userId = ctx.params.userId; // 获取url里传过来的参数里的id
-  const result = await colorModel.getColorDiskByUserId(userId);
+  const result = await colorModel.getQueryColorDisk(userId);
   ctx.body = result; // 将请求的结果放到response的body里返回
 };
 
@@ -46,7 +46,7 @@ const updateColorDisk = async (ctx) => {
 
 module.exports = {
   getAllColorDisk,
-  getColorDiskByUserId,
+  getQueryColorDisk,
   createColorDisk,
   removeColorDisk,
   updateColorDisk,

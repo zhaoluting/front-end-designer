@@ -76,7 +76,7 @@ export default {
     }),
   },
   mounted() {
-    this.localUserName = JSON.parse(localStorage.fontEndUserInfo);
+    this.updateUser();
     const hash = window.location.hash.split('/');
     if (hash[1] && hash[1] !== '') this.activePage = hash[1];
   },
@@ -96,6 +96,9 @@ export default {
     },
     goToActivePage(key) {
       this.$router.push(`/${key}`);
+    },
+    updateUser() {
+      this.localUserName = JSON.parse(localStorage.fontEndUserInfo);
     },
   },
 };

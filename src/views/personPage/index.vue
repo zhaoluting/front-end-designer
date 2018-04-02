@@ -10,7 +10,6 @@ export default {
   },
   data() {
     return {
-      localUserInfo: {},
       userForm: {
         id: 0,
         userName: '',
@@ -21,12 +20,22 @@ export default {
     };
   },
   mounted() {
-    this.localUserInfo = JSON.parse(localStorage.fontEndUserInfo);
     this.userForm = JSON.parse(localStorage.fontEndUserInfo);
   },
   methods: {
     onSubmit() {
-      console.log('ddd');
+      this.$http.post('/auth/user/updateUser', this.userForm).then((res) => {
+        if (res.data.success) { // 如果成功
+          this.$Message.success('保存成功！');
+          localStorage.fontEndUserInfo = JSON.stringify(this.userForm);
+          this.$refs.layoutHead.updateUser();
+        } else {
+          this.$Message.error('保存失败！');
+        }
+      }, (err) => {
+        console.log(err);
+        this.$Message.error('请求错误！');
+      });
     },
   },
 };

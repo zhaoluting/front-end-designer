@@ -13,7 +13,7 @@ const getAllColorDisk = async () => { // 获取全部色盘
   return allDisk; // 返回数据
 };
 
-const getColorDiskByUserId = async (id) => { // 获取某个用户的全部色盘
+const getQueryColorDisk = async (id) => { // 获取某个用户的全部色盘
   const disk = await colorDisk.findAll({ // 查找全部的色盘
     where: {
       user_id: id,
@@ -50,7 +50,7 @@ const updateColorDisk = async (data) => {
 
 module.exports = {
   getAllColorDisk,
-  getColorDiskByUserId,
+  getQueryColorDisk,
   createColorDisk,
   removeColorDisk,
   updateColorDisk,

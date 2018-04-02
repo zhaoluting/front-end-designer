@@ -18,13 +18,13 @@
       <Col span="4">
         <Radio-group v-model="orderBy" class="search-order" type="button" size="small">
           <Radio label="time">
-            <Icon type="arrow-up-c" v-if="orderBy==='time' && ordertype==='asc'"></Icon>
-            <Icon type="arrow-down-c" v-if="orderBy==='time' && ordertype==='desc'"></Icon>
+            <Icon type="arrow-up-c" @click.native="changeOrderBy" v-if="orderBy==='time' && ordertype==='asc'"></Icon>
+            <Icon type="arrow-down-c" @click.native="changeOrderBy" v-if="orderBy==='time' && ordertype==='desc'"></Icon>
             时间
           </Radio>
           <Radio label="hot">
-              <Icon type="arrow-up-c" v-if="orderBy==='hot' && ordertype==='asc'"></Icon>
-              <Icon type="arrow-down-c" v-if="orderBy==='hot' && ordertype==='desc'"></Icon>
+              <Icon type="arrow-up-c" @click.native="changeOrderBy" v-if="orderBy==='hot' && ordertype==='asc'"></Icon>
+              <Icon type="arrow-down-c" @click.native="changeOrderBy" v-if="orderBy==='hot' && ordertype==='desc'"></Icon>
               热度
           </Radio>
           <Radio label="userId">我的</Radio>

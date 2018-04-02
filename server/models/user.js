@@ -29,8 +29,19 @@ const createUser = async (data) => { // 创建一个用户创建
   return true;
 };
 
+const updateUser = async (data) => {
+  await User.update(data, {
+    where: {
+      id: data.id,
+    },
+  });
+
+  return true;
+};
+
 module.exports = {
   getUserById, // 导出getUserById的方法，将会在controller里调用
   getUserByName,
   createUser,
+  updateUser,
 };

@@ -18,6 +18,9 @@ export default {
     return {
       localUserName: {},
       allcolorDisk: [],
+      queryForm: {
+        user_id: '',
+      },
       diskType: [{
         type: 0,
         typeName: '上中型',
@@ -51,10 +54,17 @@ export default {
         this.allcolorDisk = res.data.result;
       });
     },
+    getColorDisk() {
+      this.$http.get('/color/getAllColorDisk', this.queryForm).then((res) => { // axios返回的数据都在res.data里
+        this.allcolorDisk = res.data.result;
+      });
+    },
     previewColor(index) {
       if (index !== 'new') {
         this.colorPreview = this.allcolorDisk[index];
-        this.allcolorDisk[index].hot_view = this.allcolorDisk[index].hot_view + 1;
+        if (this.localUserName.id !== this.allcolorDisk[index].user_id) {
+          this.allcolorDisk[index].hot_view = this.allcolorDisk[index].hot_view + 1;
+        }
       } else {
         this.colorPreview = {};
       }
@@ -63,6 +73,9 @@ export default {
     subColor() {
       this.getAllColorDisk();
       this.colorPreviewShow = false;
+    },
+    changeOrderBy() {
+      this.ordertype = (this.ordertype === 'desc') ? 'asc' : 'desc';
     },
   },
 };

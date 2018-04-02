@@ -4,7 +4,7 @@ const colorDisk = require('../controllers/colorDisk.js');
 const router = require('koa-router')();
 
 router.get('/getAllColorDisk', colorDisk.getAllColorDisk);
-router.get('/getColorDiskByUserId/:userId', colorDisk.getColorDiskByUserId);
+router.get('/getQueryColorDisk/:id', colorDisk.getQueryColorDisk);
 router.post('/createColorDisk', colorDisk.createColorDisk);
 router.delete('/removeColorDisk/:id', colorDisk.removeColorDisk);
 router.post('/updateColorDisk', colorDisk.updateColorDisk);
