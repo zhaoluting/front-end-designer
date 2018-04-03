@@ -3,31 +3,27 @@
   <Affix :offset-top="60">
     <Row class="color-search">
       <Col span="6" :offset="7">
-        <Input placeholder="按关键字搜索"></Input>
+        <Input v-model="queryForm.key" placeholder="按关键字搜索"></Input>
       </Col>
       <Col span="3">
         <Button-group>
-          <Button type="primary">
-              搜名称
-          </Button>
-          <Button type="primary">
-              搜作者
-          </Button>
+          <Button type="primary" @click="getAllColorDisk('disk_name')">搜名称</Button>
+          <Button type="primary" @click="getAllColorDisk('user_name')">搜作者</Button>
         </Button-group>
       </Col>
       <Col span="4">
-        <Radio-group v-model="orderBy" class="search-order" type="button" size="small">
-          <Radio label="time">
-            <Icon type="arrow-up-c" @click.native="changeOrderBy" v-if="orderBy==='time' && ordertype==='asc'"></Icon>
-            <Icon type="arrow-down-c" @click.native="changeOrderBy" v-if="orderBy==='time' && ordertype==='desc'"></Icon>
+        <Radio-group v-model="queryForm.orderBy" @on-change="getAllColorDisk" class="search-order" type="button" size="small">
+          <Radio label="id">
+            <Icon type="arrow-up-c" @click.native="changeOrderBy" v-if="queryForm.orderBy==='id' && queryForm.order==='asc'"></Icon>
+            <Icon type="arrow-down-c" @click.native="changeOrderBy" v-if="queryForm.orderBy==='id' && queryForm.order==='desc'"></Icon>
             时间
           </Radio>
-          <Radio label="hot">
-              <Icon type="arrow-up-c" @click.native="changeOrderBy" v-if="orderBy==='hot' && ordertype==='asc'"></Icon>
-              <Icon type="arrow-down-c" @click.native="changeOrderBy" v-if="orderBy==='hot' && ordertype==='desc'"></Icon>
+          <Radio label="hot_view">
+              <Icon type="arrow-up-c" @click.native="changeOrderBy" v-if="queryForm.orderBy==='hot_view' && queryForm.order==='asc'"></Icon>
+              <Icon type="arrow-down-c" @click.native="changeOrderBy" v-if="queryForm.orderBy==='hot_view' && queryForm.order==='desc'"></Icon>
               热度
           </Radio>
-          <Radio label="userId">我的</Radio>
+          <Radio label="user_id">我的</Radio>
         </Radio-group>
         <!-- <span class="search-order">
           <Icon type="happy-outline"></Icon>

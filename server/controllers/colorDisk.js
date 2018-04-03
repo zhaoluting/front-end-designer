@@ -11,10 +11,15 @@ const getAllColorDisk = async (ctx) => { // 获取所有色盘
   }; // 将请求的结果放到response的body里返回
 };
 
-const getQueryColorDisk = async (ctx) => { // 获取某个用户的所有色盘
-  const userId = ctx.params.userId; // 获取url里传过来的参数里的id
-  const result = await colorModel.getQueryColorDisk(userId);
-  ctx.body = result; // 将请求的结果放到response的body里返回
+const getQueryColorDisk = async (ctx) => { // 获取色盘
+  const queryForm = ctx.query;
+  const result = await colorModel.getQueryColorDisk(queryForm);
+
+  ctx.body = {
+    total: result.length,
+    success: true,
+    result,
+  };
 };
 
 const createColorDisk = async (ctx) => { // 给某个用户创建一色盘

@@ -19,7 +19,10 @@ export default {
       localUserName: {},
       allcolorDisk: [],
       queryForm: {
-        user_id: '',
+        key: '',
+        value: '',
+        orderBy: 'id',
+        order: 'asc',
       },
       diskType: [{
         type: 0,
@@ -64,8 +67,6 @@ export default {
       }],
       colorPreviewShow: false,
       colorPreview: {},
-      orderBy: 'time',
-      ordertype: 'desc',
     };
   },
   mounted() {
@@ -73,15 +74,20 @@ export default {
     this.getAllColorDisk();
   },
   methods: {
-    getAllColorDisk() {
-      this.$http.get('/color/getAllColorDisk').then((res) => { // axios返回的数据都在res.data里
+    getAllColorDisk(value) {
+      this.queryForm.value = value;
+      const prama = JSON.parse(JSON.stringify(this.queryForm));
+      if (prama.orderBy === 'user_id') {
+        prama.key = this.localUserName.id;
+        prama.value = 'user_id';
+      }
+      this.$http.get(`/color/getQueryColorDisk?orderBy=${prama.orderBy}&order=${prama.order}&key=${prama.key}&value=${prama.value}`, prama).then((res) => { // axios返回的数据都在res.data里
         this.allcolorDisk = res.data.result;
       });
     },
-    getColorDisk() {
-      this.$http.get('/color/getAllColorDisk', this.queryForm).then((res) => { // axios返回的数据都在res.data里
-        this.allcolorDisk = res.data.result;
-      });
+    changeOrderBy() {
+      this.queryForm.order = (this.queryForm.order === 'desc') ? 'asc' : 'desc';
+      this.getAllColorDisk();
     },
     previewColor(index) {
       if (index !== 'new') {
@@ -97,9 +103,6 @@ export default {
     subColor() {
       this.getAllColorDisk();
       this.colorPreviewShow = false;
-    },
-    changeOrderBy() {
-      this.ordertype = (this.ordertype === 'desc') ? 'asc' : 'desc';
     },
   },
 };
