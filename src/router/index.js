@@ -4,6 +4,7 @@ import HomePage from '@/views/homePage/index';
 import Login from '@/views/login/index';
 import ColorPage from '@/views/colorPage/index';
 import PersonPage from '@/views/personPage/index';
+import designerPage from '@/views/designerPage/index';
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/personPage',
       name: 'personPage',
       component: PersonPage,
+    },
+    {
+      path: '/designerPage',
+      name: 'designerPage',
+      component: designerPage,
     },
     {
       path: '*',
