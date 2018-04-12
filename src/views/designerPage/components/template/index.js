@@ -45,7 +45,7 @@ const getTemplate = (info, _attr = {}, _slots = {}) => {
 
 const getSlotContent = (slots) => {
   let inner = '';
-  const components = JSON.parse(JSON.stringify(_Vue.$store.state.components));
+  const components = JSON.parse(JSON.stringify(myVue.$store.state.components));
   Object.keys(slots).forEach((slot) => {
     slots[slot].forEach(({ id }) => {
       let component = components.find(component => component.info.id === id);

@@ -18,7 +18,7 @@ var handle = function(_attr, _slots) {
             },
             rows:{
                 type:'number',
-                value:''
+                value: 2
             },
             placeholder:{
                 type:'text',

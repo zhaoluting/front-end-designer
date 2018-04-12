@@ -6,19 +6,19 @@ var handle = function(_attr, _slots) {
     let attributes = {
             height:{
                 type:'number',
-                value:''
+                value: 200
             },
             bottom:{
                 type:'number',
-                value:''
+                value: 30
             },
             right:{
                 type:'number',
-                value:''
+                value: 30
             },
             duration:{
                 type:'number',
-                value:''
+                value: 500
             }
         },
         slots = {

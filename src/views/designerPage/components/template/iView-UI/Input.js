@@ -28,7 +28,7 @@ var handle = function(_attr, _slots) {
             },
             maxlength:{
                 type:'number',
-                value:''
+                value: 0
             },
             icon:{
                 type:'ionicon',
@@ -36,7 +36,7 @@ var handle = function(_attr, _slots) {
             },
             rows:{
                 type:'number',
-                value:''
+                value: 2
             },
             autosize:{
                 type:'boolean',

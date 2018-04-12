@@ -3,7 +3,7 @@ import Vue from 'vue';
 
 // 给定模板，和要挂载的元素id，挂载组件
 const mount = (id, _component) => {
-  const components = _Vue.$store.state.components;
+  const components = myVue.$store.state.components;
   const component = components.find(c => c.info.id === id);
   return new Promise((resolve) => {
     // 需要延迟才能取到document.getElementById(id)
@@ -30,7 +30,7 @@ const mount = (id, _component) => {
             component.uid = this._uid;
           }
           // 添加选中效果
-          const info = _Vue.$store.state.currentComponent.info;
+          const info = myVue.$store.state.currentComponent.info;
           if (!info) this.$el.click();
         },
       });

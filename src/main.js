@@ -40,7 +40,7 @@ Vue.use(VueHighlightJS);
 Vue.prototype.$prettyDom = pretty;
 
 /* eslint-disable no-new */
-new Vue({
+window.myVue = new Vue({
   el: '#app',
   router,
   store,

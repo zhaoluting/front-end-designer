@@ -11,19 +11,19 @@ var handle = function(_attr, _slots) {
             },
             value:{
                 type:'number',
-                value:''
+                value: 0
             },
             max:{
                 type:'number',
-                value:''
+                value: 100
             },
             min:{
                 type:'number',
-                value:''
+                value: 0
             },
             size:{
                 type:'number',
-                value:''
+                value: 4
             },
             color:{
                 type:'color',

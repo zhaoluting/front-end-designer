@@ -72,7 +72,7 @@ var handle = function(_attr, _slots) {
             },
             rippleOpacity:{
                 type:'number',
-                value:''
+                value: 0.3
             }
 
         },

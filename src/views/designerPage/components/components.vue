@@ -1,13 +1,14 @@
 <template>
-  <section>
-      <Select v-model="activeUI" @change="handleTabChange">
-          <Option title="Muse-UI" value="Muse-UI"></Option>
-          <Option title="Mint-UI" value="Mint-UI"></Option>
-          <Option title="iView-UI" value="iView-UI"></Option>
-          <Option title="Element-UI" value="Element-UI"></Option>
-          <Option title="通用" value="Common"></Option>
-      </Select>
-      <span style="white-space:nowrap;">- 组件</span>
+  <section class="componentsPart">
+      <div class="top-select">
+            <span>组件类型：</span>
+            <Select v-model="activeUI" @change="handleTabChange" size="small" style="width: 60%">
+                <Option title="Muse-UI" value="Muse-UI"></Option>
+                <Option title="Mint-UI" value="Mint-UI"></Option>
+                <Option title="iView-UI" value="iView-UI"></Option>
+                <Option title="通用" value="Common"></Option>
+            </Select>
+      </div>
       <div v-if="activeUI === 'Muse-UI'">
           <ul class="components-list">
               <!-- 导航栏 -->
@@ -206,13 +207,6 @@
               </li>
           </ul>
       </div>
-      <div v-if="activeUI === 'Element-UI'">
-          <ul class="components-list">
-              <!-- <li draggable="true" @dragstart="dragStart" data-name="Header">
-                  <mt-header fixed title="Header"></mt-header>
-              </li>  -->
-          </ul>
-      </div>
       <div v-if="activeUI==='Common'">
           <ul class="components-list">
               <li draggable="true" @dragstart="dragStart" data-name="Text">
@@ -288,35 +282,47 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.components-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.components-list * {
-    cursor: move!important;
-}
-
-.components-list>li {
-    min-height: 36px;
-    font-size: 18px;
-    -webkit-user-select: none;
-    transform: scale(0.7)translateX(-15%);
-    padding-bottom: 10px;
-    transition: transform .2s;
-    &:hover {
-        transform: scale(1)translateX(5%);
+.componentsPart {
+    .top-select {
+        height: 36px;
+        margin-bottom: 15px;
+        padding-top: 6px;
+        span {
+            white-space: nowrap;
+            font-weight: 900;
+            color: #ce5655;
+        }
     }
-    i {
-        vertical-align: middle;
+    .components-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
     }
-}
 
-.components-list.iview-ui >li {
-    transform: scale(0.8)translateX(-5%);
-    &:hover {
-      transform: scale(1.1)translateX(10%);
+    .components-list * {
+        cursor: move!important;
+    }
+
+    .components-list>li {
+        min-height: 36px;
+        font-size: 18px;
+        -webkit-user-select: none;
+        transform: scale(0.7)translateX(-15%);
+        padding-bottom: 10px;
+        transition: transform .2s;
+        &:hover {
+            transform: scale(1)translateX(5%);
+        }
+        i {
+            vertical-align: middle;
+        }
+    }
+
+    .components-list.iview-ui >li {
+        transform: scale(0.8)translateX(-5%);
+        &:hover {
+        transform: scale(1.1)translateX(10%);
+        }
     }
 }
 </style>

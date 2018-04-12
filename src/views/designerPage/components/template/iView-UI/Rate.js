@@ -6,11 +6,11 @@ var handle = function(_attr, _slots) {
     let attributes = {
             count:{
                 type:'number',
-                value:''
+                value: 5
             },
             value:{
                 type:'number',
-                value:''
+                value: 0
             },
             ['allow-harf']:{
                 type:'boolean',

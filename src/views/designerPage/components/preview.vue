@@ -3,7 +3,12 @@
     <!-- CODE视图 -->
     <div class="preview-head">
       <div class="bar">
-        <span class="bar-title">{{showType}}</span>
+        <span class="bar-title">
+            <Icon type="eye" v-if="showType==='预览'"></Icon>
+            <Icon type="code-working" v-else-if="showType==='CODE'"></Icon>
+            <Icon type="paintbucket" v-else></Icon>
+            {{showType}}
+        </span>
         <Button class="pre-but" type="primary" size="small" icon="qr-scanner" @click="fullScreen">
           全屏
         </Button>
@@ -15,8 +20,8 @@
             <Icon type="arrow-down-b"></Icon>
           </Button>
           <Dropdown-menu slot="list">
-            <Dropdown-item @click="setWidth">调整比例</Dropdown-item>
-            <Dropdown-item  @click="previewMode=previewMode==='pc'?'mobile':'pc'">
+            <Dropdown-item @click.native="setWidth">调整比例</Dropdown-item>
+            <Dropdown-item @click.native="previewMode=previewMode==='pc'?'mobile':'pc'">
                 {{previewMode==='pc'?'手机模式':'PC模式'}}
             </Dropdown-item>
           </Dropdown-menu>
@@ -40,7 +45,8 @@
         </div>
     </div>
     <!-- 预览视图 -->
-    <div ref="preview" v-show="previewMode==='pc'" class="preview-area"
+    <div ref="preview" v-show="previewMode==='pc'"
+      :class="{'preview-area':true, 'no-display':showType!=='预览'}"
       @click="clickPreview" @contextmenu="rightClick" @keyup.delete="del">
       <div v-if="!item.parentId" :id="item.info.id"
         v-for="(item,index) in components" :key="index"></div>
@@ -208,7 +214,7 @@ export default {
         const store = share.get('store');
         if (store) {
           this.$store.commit('setState', store);
-          // dom没有渲染完成 window._Vue为undefined，加个延迟
+          // dom没有渲染完成 window.myVue为undefined，加个延迟
           setTimeout(() => {
             this.mount();
           }, 0);
@@ -218,7 +224,7 @@ export default {
       // 读取本地数据
       const store = JSON.parse(localStorage.store);
       this.$store.commit('setState', store);
-      // dom没有渲染完成 window._Vue为undefined，加个延迟
+      // dom没有渲染完成 window.myVue为undefined，加个延迟
       setTimeout(() => {
         this.mount();
       }, 0);
@@ -628,6 +634,11 @@ export default {
     height: inherit;
     z-index: 0;
     padding-bottom: 100px;
+    min-height: 84vh;
+}
+
+.no-display {
+  display: none;
 }
 
 .preview-tip {
@@ -645,6 +656,7 @@ export default {
     .bar {
       text-align: left;
       border: solid #ce5655 1px;
+      border-width: 0 0 1px 0;
       .bar-title{
         line-height: 34px;
         font-size: 14px;
@@ -672,7 +684,7 @@ export default {
         }
     }
     .content.active {
-        height: 95vh;
+        height: 84vh;
     }
 }
 

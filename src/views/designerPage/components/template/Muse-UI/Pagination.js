@@ -18,7 +18,7 @@ var handle = function(_attr, _slots) {
             },
             defaultPageSize:{
                 type:'number',
-                value:''
+                value: 10
             },
             showSizeChanger:{
                 type:'boolean',

@@ -1,14 +1,21 @@
 <template>
   <div class="designer-page">
-    <layout></layout>
-    <div class="button-head">
-      <Button icon="android-share-alt" @click="share.open=true" type="primary"></Button>
-      <Button icon="android-settings" @click="setting.open=true" type="primary"></Button>
+    <div class="page-head">
+      <layout></layout>
+      <span class="title-head">新建项目名</span>
+      <span class="button-head">
+        <Button class="buts" shape="circle" icon="android-share-alt"
+          @click="share.open=true" type="primary"></Button>
+        <Button class="buts" shape="circle" icon="android-settings"
+          @click="setting.open=true" type="primary"></Button>
+        <Button class="buts" shape="circle" icon="edit"
+          @click="setting.open=true" type="primary"></Button>
+        </span>
     </div>
-    <Row>
-      <Col :span="width.attr">
-        <div>
-          <Select v-model="selectField.value" style="width:100px">
+    <Row class="page-content">
+      <Col :span="width.attr" class="transition-part attributes-part">
+        <div class="top-select">
+          <Select v-model="selectField.value" size="small" style="width:100px">
             <Option label="属性" value="属性"></Option>
             <Option label="组件树" value="组件树"></Option>
           </Select>
@@ -23,15 +30,15 @@
         <componentTree v-if="selectField.value==='组件树'"
             :components="$store.state.components.filter(c=>!c.parentId)" />
         <div class="attributes-bottom" v-if="current.info">
-          <Button label="UI文档" @click="openUiDocument"></Button>
-          <Button label="操作" @click="oprate"></Button>
+          <Button @click="openUiDocument">UI文档</Button>
+          <Button @click="oprate">操作</Button>
         </div>
       </Col>
-      <Col :span="width.preview">
-          <preview ref="preview" />
+      <Col :span="width.preview" class="transition-part preview-part">
+          <preview ref="preview"/>
       </Col>
-      <Col :span="width.components">
-          <components ref="components" />
+      <Col :span="width.components" class="transition-part components-part">
+          <components ref="components"/>
       </Col>
     </Row>
     <Modal v-model="setting.open" @on-cancel="setting.open=false" title="设置" scrollable>
@@ -194,12 +201,62 @@ export default {
 </script>
 <style lang="less">
 .designer-page {
-  .button-head {
-    text-align: right;
-    font-size: 30px;
-  }
+  display: block;
+  height: 100vh;
+  overflow: auto;
   .parent-component {
-      cursor: pointer;
+    cursor: pointer;
+  }
+  .transition-part {
+    transition: all .5s;
+  }
+  .top-select {
+      height: 36px;
+      margin-bottom: 15px;
+      padding-top: 6px;
+      span {
+          white-space: nowrap;
+          font-weight: 900;
+          color: #ce5655;
+      }
+  }
+  .page-head {
+    .title-head {
+      position: fixed;
+      top: 0px;
+      left: 150px;
+      z-index: 999;
+      font-size: 12px;
+      color: #fff;
+      margin: 25px 8px 0px 25px;
+      padding: 2px 8px;
+      border: #fff solid 1px;
+      border-radius: 5px;
+    }
+    .button-head {
+      position: fixed;
+      top: 0px;
+      right: 200px;
+      z-index: 999;
+      .buts {
+        float: right;
+        margin: 17px 5px 0 0;
+      }
+    }
+  }
+  .page-content {
+    margin-top: 10px;
+    .preview-part {
+      border: solid #ce5655 1px;
+    }
+    .components-part {
+      height: 85vh;
+      overflow: auto;
+    }
+    .attributes-part {
+      height: 85vh;
+      overflow: auto;
+    }
   }
 }
 </style>

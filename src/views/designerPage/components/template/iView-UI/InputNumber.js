@@ -6,19 +6,19 @@ var handle = function(_attr, _slots) {
     let attributes = {
             max:{
                 type:'number',
-                value:''
+                value: 0
             },
             min:{
                 type:'number',
-                value:''
+                value: 0
             },
             value:{
                 type:'number',
-                value:''
+                value: 1
             },
             step:{
                 type:'number',
-                value:''
+                value: 1
             },
             size:{
                 type:'selection',

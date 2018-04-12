@@ -21,7 +21,7 @@ var handle = function(_attr, _slots, { id }) {
 
     // //根据组件不同需要做的不同操作
     // let max = _attr.column ? _attr.column.value : attributes.column.value
-    // let components = JSON.parse(JSON.stringify(_Vue.$store.state.components))
+    // let components = JSON.parse(JSON.stringify(myVue.$store.state.components))
     // let component = components.find(c => c.info.id === id) || { slots }
     // let oldSlots = component.slots
     // let defaul = [] //default 格式化插件对default这个字符格式化有问题 就没写全
@@ -53,7 +53,7 @@ var handle = function(_attr, _slots, { id }) {
     //     components.splice(index, 1)
     // })
     // slots.default = defaul
-    // _Vue.$store.commit('setState', { components: components })
+    // myVue.$store.commit('setState', { components: components })
 
     //获取插槽模板内容
     let subContent = getSlotContent(slots)

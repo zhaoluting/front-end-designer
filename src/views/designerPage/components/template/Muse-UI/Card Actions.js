@@ -14,7 +14,7 @@ var handle = function(_attr, _slots, _info) {
     Object.assign(attributes, _attr)
 
     //根据组件不同需要做的不同操作
-    let components = JSON.parse(JSON.stringify(_Vue.$store.state.components))
+    let components = JSON.parse(JSON.stringify(myVue.$store.state.components))
     let isFirstCreate = !components.find(c => c.info.id === _info.id)
     let addComponent = function(_attr, _slots) {
         let info = {
@@ -24,7 +24,7 @@ var handle = function(_attr, _slots, _info) {
         }
         let component = getTemplate(info, _attr, _slots)
         //尽量每次getTemplate后都重新获取components，避免里面修改了后造成不同步会报错
-        components = JSON.parse(JSON.stringify(_Vue.$store.state.components))
+        components = JSON.parse(JSON.stringify(myVue.$store.state.components))
         component.parentId = _info.id
         components.push(component)
         return component
@@ -32,7 +32,7 @@ var handle = function(_attr, _slots, _info) {
     if (isFirstCreate) {
         let img = addComponent()
         slots.default.push({ id: img.info.id })
-        _Vue.$store.commit('setState', { components })
+        myVue.$store.commit('setState', { components })
     }
 
     //获取插槽模板内容

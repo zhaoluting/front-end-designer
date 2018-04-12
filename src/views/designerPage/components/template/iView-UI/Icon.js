@@ -10,7 +10,7 @@ var handle = function(_attr, _slots) {
             },
             size:{
                 type:'number',
-                value:''
+                value: 12
             },
             color:{
                 type:'color',

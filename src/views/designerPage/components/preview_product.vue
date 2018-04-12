@@ -27,7 +27,7 @@ export default {
         const store = share.get('store');
         if (store) {
           this.$store.commit('setState', store);
-          // dom没有渲染完成 window._Vue为undefined，加个延迟
+          // dom没有渲染完成 window.myVue为undefined，加个延迟
           setTimeout(() => {
             this.mount();
           }, 0);
@@ -37,7 +37,7 @@ export default {
       // 读取本地数据
       const store = JSON.parse(localStorage.store);
       this.$store.commit('setState', store);
-      // dom没有渲染完成 window._Vue为undefined，加个延迟
+      // dom没有渲染完成 window.myVue为undefined，加个延迟
       setTimeout(() => {
         this.mount();
       }, 0);

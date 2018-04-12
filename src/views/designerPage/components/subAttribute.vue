@@ -7,27 +7,27 @@
                 value:'按钮'
             }
         }-->
-    <div v-if="attr" v-for="(v,k,i) in attr" :key="i">
+  <Form :label-width="60">
+    <Form-item :label="k" v-if="attr" v-for="(v,k,i) in attr" :key="i"
+        style="margin-right: 8px;margin-bottom: 5px;">
       <!-- 文本型（text）属性 -->
-      <mu-text-field v-if="v.type==='text'" :label="k"
-        :name="k" v-model="v.value" @input.native="updateAttribute" type="text" fullWidth/>
+      <Input v-if="v.type==='text'" v-model="v.value" @on-change="updateAttribute" size="small"/>
       <!-- 数字型（number）属性 -->
-      <mu-text-field v-if="v.type==='number'" :label="k"
-        :name="k" v-model="v.value" @input.native="updateAttribute" type="number" fullWidth/>
+      <Input-number v-if="v.type==='number'" v-model="v.value"
+        @on-change="updateAttribute" size="small"/>
       <!-- 滑块型 -->
       <small v-if="v.type==='slider'">{{k+': '+v.value}}</small>
-      <mu-slider v-if="v.type==='slider'" v-model="v.value"
+      <Slider v-if="v.type==='slider'" v-model="v.value"
         :step="v.step" :max="v.max" :min="v.min" @mouseup.native="updateAttribute" />
       <!--  标签型（label）属性  -->
       <div v-if="v.type==='label'" class="mu-text-field-label">{{v.value}}</div>
       <!--  开关（boolean）属性   -->
-      <mu-switch v-if="v.type==='boolean'" :label="k" v-model="v.value"
-        @change="updateAttribute" labelLeft :style="{width:'100%',marginBottom:'10px'}" />
+      <i-switch v-if="v.type==='boolean'" v-model="v.value" @on-change="updateAttribute"/>
       <!--  选择型 (selection) 属性  -->
-      <mu-select-field v-if="v.type==='selection'" v-model="v.value"
-        :label="k" @input="updateAttribute" style="width:100%;">
-          <mu-menu-item v-for="(item,index) in v.items" :value="item" :title="item" :key="index" />
-      </mu-select-field>
+      <Select v-if="v.type==='selection'" v-model="v.value"
+          @on-change="updateAttribute" size="small">
+          <Option v-for="(item,index) in v.items" :value="item" :key="index">{{item}}</Option>
+      </Select>
       <!-- 图标型 (icon) 属性 Muse-UI专用 -->
       <iconPicker v-if="v.type==='icon'" @change="updateAttribute" v-model="v.value" :name="k"/>
       <!-- 图标型 (ionicon) 属性 iView-UI专用 -->
@@ -38,7 +38,8 @@
       <!-- 子属性 -->
       <subAttributes v-if="v.children" :keyOfAttr="k" :attributes="v.children"
         @update="subUpdate" />
-    </div>
+    </Form-item>
+  </Form>
   </div>
 </template>
 <script>

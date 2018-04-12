@@ -32,7 +32,7 @@ var handle = function(_attr, _slots, _info) {
     Object.assign(attributes, _attr)
 
     //根据组件不同需要做的不同操作
-    let components = JSON.parse(JSON.stringify(_Vue.$store.state.components))
+    let components = JSON.parse(JSON.stringify(myVue.$store.state.components))
     let isFirstCreate = !components.find(c => c.info.id === _info.id)
     let addAvatarComponent = function(_attr, _slots) {
         let info = {
@@ -42,7 +42,7 @@ var handle = function(_attr, _slots, _info) {
         }
         let avatarComponent = getTemplate(info, _attr, _slots)
         //尽量每次getTemplate后都重新获取components，避免里面修改了后造成不同步会报错
-        components = JSON.parse(JSON.stringify(_Vue.$store.state.components))
+        components = JSON.parse(JSON.stringify(myVue.$store.state.components))
         avatarComponent.parentId = _info.id
         components.push(avatarComponent)
         return avatarComponent
@@ -51,7 +51,7 @@ var handle = function(_attr, _slots, _info) {
         let attr = { slot: 'avatar' }
         let avatar = addAvatarComponent(attr)
         slots.avatar.push({ id: avatar.info.id })
-        _Vue.$store.commit('setState', { components })
+        myVue.$store.commit('setState', { components })
     }
 
 

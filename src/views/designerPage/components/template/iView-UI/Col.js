@@ -13,31 +13,31 @@ var handle = function(_attr, _slots) {
             },
             order:{
                 type:'number',
-                value:''
+                value: 1
             },
             offset:{
                 type:'number',
-                value:''
+                value: 0
             },
             push:{
                 type:'number',
-                value:''
+                value: 0
             },
             xs:{
                 type:'number',
-                value:''
+                value: 10
             },
             sm:{
                 type:'number',
-                value:''
+                value: 8
             },
             md:{
                 type:'number',
-                value:''
+                value: 6
             },
             lg:{
                 type:'number',
-                value:''
+                value: 4
             }
         },
         slots = {
