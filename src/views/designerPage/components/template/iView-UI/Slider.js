@@ -13,15 +13,15 @@ var handle = function(_attr, _slots) {
             },
             max: {
                 type: 'number',
-                value: ''
+                value: 100
             },
             min: {
                 type: 'number',
-                value: ''
+                value: 0
             },
             step: {
                 type: 'number',
-                value: ''
+                value: 1
             },
             disabled: {
                 type: 'boolean',

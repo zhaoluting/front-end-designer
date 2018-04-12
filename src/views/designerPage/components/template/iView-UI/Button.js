@@ -15,12 +15,12 @@ var handle = function(_attr, _slots) {
             },
             size: {
                 type: 'selection',
-                items: ['large', 'small', ''],
+                items: ['large', 'small'],
                 value: ''
             },
             shape: {
                 type: 'selection',
-                items: ['circle', ''],
+                items: ['circle'],
                 value: ''
             },
             long: {

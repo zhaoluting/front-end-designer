@@ -90,15 +90,15 @@ var handle = function(_attr, _slots) {
             },
             rows: {
                 type: 'number',
-                value: ''
+                value: 1
             },
             rowsMax: {
                 type: 'number',
-                value: ''
+                value: 0
             },
             maxLength: {
                 type: 'number',
-                value: ''
+                value: 0
             },
             value: {
                 type: 'text',
@@ -106,11 +106,11 @@ var handle = function(_attr, _slots) {
             },
             max: {
                 type: 'number',
-                value: ''
+                value: 0
             },
             min: {
                 type: 'number',
-                value: ''
+                value: 0
             },
             required: {
                 type: 'boolean',

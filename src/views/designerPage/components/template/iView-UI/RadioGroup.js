@@ -16,12 +16,12 @@ var handle = function(_attr, _slots, { id }) {
             },
             type:{
                 type:'selection',
-                items:['button',''],
+                items:['button'],
                 value:''
             },
             size:{
                 type:'selection',
-                items:['large','small',''],
+                items:['large','small'],
                 value:''
             },
             vertical:{

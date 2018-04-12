@@ -18,12 +18,12 @@ var handle = function(_attr, _slots) {
             },
             format:{
                 type:'selection',
-                items:['hsl','hsv','hex','rgb',''],
+                items:['hsl','hsv','hex','rgb'],
                 value:''
             },
             size:{
                 type:'selection',
-                items:['large','small','default',''],
+                items:['large','small','default'],
                 value:''
             }
         },

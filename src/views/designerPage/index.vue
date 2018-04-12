@@ -204,6 +204,7 @@ export default {
   display: block;
   height: 100vh;
   overflow: auto;
+  background: #ffffff;
   .parent-component {
     cursor: pointer;
   }

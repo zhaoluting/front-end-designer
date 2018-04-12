@@ -57,7 +57,7 @@ var handle = function(_attr, _slots) {
             },
             describeLine: {
                 type: 'number',
-                value: '',
+                value: 2,
                 describ: '描述文字行数'
             },
             describeTextClass: {

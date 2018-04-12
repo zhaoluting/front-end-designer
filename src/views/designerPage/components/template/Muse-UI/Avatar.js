@@ -22,11 +22,11 @@ var handle = function(_attr, _slots) {
             },
             iconSize: {
                 type: 'number',
-                value: ''
+                value: 24
             },
             size: {
                 type: 'number',
-                value: ''
+                value: 40
             }
         },
         slots = {

@@ -14,15 +14,11 @@ var handle = function(_attr, _slots) {
             },
             ['label-width']: {
                 type: 'number',
-                value: ''
+                value: 100
             },
             required: {
                 type: 'boolean',
                 value: false
-            },
-            rules: {
-                type: 'number',
-                value: ''
             },
             error: {
                 type: 'text',

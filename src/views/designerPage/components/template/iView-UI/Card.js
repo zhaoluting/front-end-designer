@@ -19,7 +19,7 @@ var handle = function(_attr, _slots, _info) {
             },
             padding: {
                 type: 'number',
-                value: ''
+                value: 16
             }
         },
         slots = {

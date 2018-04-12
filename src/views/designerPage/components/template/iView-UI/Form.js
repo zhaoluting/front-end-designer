@@ -10,8 +10,6 @@ var handle = function(_attr, _slots, { id }) {
                 type: 'number',
                 value: 2
             },
-            model: {},
-            rules: {},
             inline: {
                 type: 'boolean',
                 value: false
@@ -23,7 +21,7 @@ var handle = function(_attr, _slots, { id }) {
             },
             ['label-width']: {
                 type: 'number',
-                value: ''
+                value: 100
             },
             ['show-message']: {
                 type: 'boolean',

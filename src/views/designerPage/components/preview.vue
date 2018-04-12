@@ -32,6 +32,7 @@
         <Button class="pre-but" type="primary" size="small" icon="code" @click="showCode">
           代码
         </Button>
+        {{$store.state.backupComponents.length}}
         <Button v-if="$store.state.backupComponents.length" type="primary" size="small"
           class="pre-but" icon="ios-undo" @click="undo">撤销</Button>
       </div>
@@ -631,7 +632,7 @@ export default {
 .preview-area {
     overflow: auto;
     position: relative;
-    height: inherit;
+    height: 84vh;
     z-index: 0;
     padding-bottom: 100px;
     min-height: 84vh;

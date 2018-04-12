@@ -24,7 +24,7 @@
       <!--  开关（boolean）属性   -->
       <i-switch v-if="v.type==='boolean'" v-model="v.value" @on-change="updateAttribute"/>
       <!--  选择型 (selection) 属性  -->
-      <Select v-if="v.type==='selection'" v-model="v.value"
+      <Select v-if="v.type==='selection'" v-model="v.value" clearable
           @on-change="updateAttribute" size="small">
           <Option v-for="(item,index) in v.items" :value="item" :key="index">{{item}}</Option>
       </Select>

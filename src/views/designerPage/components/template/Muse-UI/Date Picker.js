@@ -27,7 +27,7 @@ var handle = function(_attr, _slots) {
             },
             firstDayOfWeek: {
                 type: 'number',
-                value: ''
+                value: 1
             },
             mode: {
                 type: 'selection',

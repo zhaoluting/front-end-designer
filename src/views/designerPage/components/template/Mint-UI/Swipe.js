@@ -10,15 +10,15 @@ var handle = function(_attr, _slots, {id}) {
             },
             speed: {
                 type: 'number',
-                value: ''
+                value: 300
             },
             auto: {
                 type: 'number',
-                value: ''
+                value: 3000
             },
             defaultIndex: {
                 type: 'number',
-                value: ''
+                value: 0
             },
             continuous: {
                 type: 'boolean',

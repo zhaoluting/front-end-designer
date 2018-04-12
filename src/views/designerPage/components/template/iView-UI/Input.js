@@ -15,7 +15,7 @@ var handle = function(_attr, _slots) {
             },
             size:{
                 type:'selection',
-                items:['large','small',''],
+                items:['large','small'],
                 value:''
             },
             placeholder:{

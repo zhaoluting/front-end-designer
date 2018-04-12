@@ -13,11 +13,11 @@ var handle = function(_attr, _slots, { id }) {
             },
             gutter: {
                 type: 'number',
-                value: ''
+                value: 0
             },
             type: {
                 type: 'selection',
-                items: ['', 'flex'],
+                items: ['flex'],
                 value: ''
             },
             align: {
