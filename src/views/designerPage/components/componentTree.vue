@@ -1,16 +1,19 @@
 <template>
-  <section>
-    <div v-for="(c, index) in components" :key="index">
-      <a @click="click(c.info.id)">
-        <mu-icon @click="show=!show" :value="show?'keyboard_arrow_down':'keyboard_arrow_right'"
-          style="vertical-align:middle;" />
-        {{c.info.name}}</a>
-      <div v-for="(slot,key) in c.slots" v-show="show" :key="key">
-        <componentTree :components="slotToComponents(c.slots[key])"
-          v-if="Object.keys(c.slots).filter(slot=>c.slots[slot].length).length" />
-      </div>
+  <div>
+    <div v-for="(c, index) in components" :key="index" style="margin-left: 10px;text-align: left;">
+      <span @click="click(c.info.id)" class="check-item">
+        <Icon @click.native="show=!show" :type="show?'arrow-down-b':'arrow-up-b'"
+        style="vertical-align:middle;"></Icon>
+        {{c.info.name}}
+      </span>
+      <transition-group name="list">
+        <div v-for="(slot,key) in c.slots" v-show="show" :key="key">
+          <componentTree :components="slotToComponents(c.slots[key])"
+            v-if="Object.keys(c.slots).filter(slot=>c.slots[slot].length).length" />
+        </div>
+      </transition-group>
     </div>
-  </section>
+  </div>
 </template>
 <script>
 export default {
@@ -40,11 +43,19 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-a {
+.check-item {
     cursor: pointer;
+    color: #CC5758;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 20px;
 }
-
-section {
-    margin-left: 20px;
+.list-enter-active, .list-leave-active {
+  transition: all .5s;
+}
+.list-enter, .list-leave-to
+/* .list-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 </style>

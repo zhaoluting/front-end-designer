@@ -15,23 +15,23 @@
     <Row class="page-content">
       <Col :span="width.attr" class="transition-part attributes-part">
         <div class="top-select">
-          <Select v-model="selectField.value" size="small" style="width:100px">
-            <Option label="属性" value="属性"></Option>
-            <Option label="组件树" value="组件树"></Option>
-          </Select>
-          <span>
+          <p style="font-weight: 900;">
             <a class="parent-component" v-if="parentComponent" @click="switchComponent">
               ┡ {{parentComponent.info.name}}
             </a>
               {{current.info?' - '+current.info.name:''}}
-          </span>
+          </p>
+          <Radio-group v-model="selectField.value" type="button" size="small">
+              <Radio label="属性"></Radio>
+              <Radio label="组件树"></Radio>
+          </Radio-group>
         </div>
-        <attributes v-if="selectField.value==='属性'"/>
+        <attributes v-if="selectField.value==='属性'" style="margin: 15px 0 15px 10px;"/>
         <componentTree v-if="selectField.value==='组件树'"
             :components="$store.state.components.filter(c=>!c.parentId)" />
         <div class="attributes-bottom" v-if="current.info">
-          <Button @click="openUiDocument">UI文档</Button>
-          <Button @click="oprate">操作</Button>
+          <Button @click="openUiDocument" type="ghost">UI文档</Button>
+          <Button @click="oprate" type="ghost">操作</Button>
         </div>
       </Col>
       <Col :span="width.preview" class="transition-part preview-part">
@@ -257,6 +257,9 @@ export default {
     .attributes-part {
       height: 85vh;
       overflow: auto;
+      .attributes-bottom {
+        margin-top: 15px;
+      }
     }
   }
 }

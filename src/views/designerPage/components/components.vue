@@ -210,19 +210,19 @@
       <div v-if="activeUI==='Common'">
           <ul class="components-list">
               <li draggable="true" @dragstart="dragStart" data-name="Text">
-                  <mu-icon value="text_fields" style="vertical-align:middle;" /> 文本
+                <Icon type="document-text" class="list-icon"></Icon>文本
               </li>
               <li draggable="true" @dragstart="dragStart" data-name="A">
-                  <mu-icon value="link" style="vertical-align:middle;" /> 链接
+                <Icon type="link" class="list-icon"></Icon> 链接
               </li>
               <li draggable="true" @dragstart="dragStart" data-name="Img">
-                  <mu-icon value="image" /> 图片
+                <Icon type="image" class="list-icon"></Icon> 图片
               </li>
               <li draggable="true" @dragstart="dragStart" data-name="Br">
-                  <mu-icon value="keyboard_return" /> 换行
+                <Icon type="arrow-swap" class="list-icon"></Icon>换行
               </li>
               <li draggable="true" @dragstart="dragStart" data-name="Div">
-                  <mu-icon value="check_box_outline_blank" /> div
+                <Icon type="android-checkbox-outline-blank" class="list-icon"></Icon>div
               </li>
           </ul>
       </div>
@@ -315,6 +315,9 @@ export default {
         }
         i {
             vertical-align: middle;
+        }
+        .list-icon {
+            font-size: 28px;
         }
     }
 

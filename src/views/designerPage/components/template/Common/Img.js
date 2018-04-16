@@ -6,7 +6,7 @@ var handle = function(_attr, _slots) {
     let attributes = {
             src: {
                 type: 'text',
-                value: './static/img_default.JPG'
+                value: 'http://img.hb.aicdn.com/94651ef194a0fcaab03e7215ba4ecb9e865052736b722-CAcFuk_fw658'
             },
             alt:{
                 type:'text',

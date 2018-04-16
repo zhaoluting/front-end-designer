@@ -7,7 +7,7 @@
                 value:'按钮'
             }
         }-->
-  <Form :label-width="60">
+  <Form :label-width="80">
     <Form-item :label="k" v-if="attr" v-for="(v,k,i) in attr" :key="i"
         style="margin-right: 8px;margin-bottom: 5px;">
       <!-- 文本型（text）属性 -->
@@ -28,13 +28,12 @@
           @on-change="updateAttribute" size="small">
           <Option v-for="(item,index) in v.items" :value="item" :key="index">{{item}}</Option>
       </Select>
-      <!-- 图标型 (icon) 属性 Muse-UI专用 -->
-      <iconPicker v-if="v.type==='icon'" @change="updateAttribute" v-model="v.value" :name="k"/>
-      <!-- 图标型 (ionicon) 属性 iView-UI专用 -->
-      <ioniconPicker v-if="v.type==='ionicon'" @change="updateAttribute"
-        v-model="v.value" :name="k"/>
+      <!-- 图标型 (icon) 属性 -->
+      <iconPicker v-if="v.type==='icon' || v.type==='ionicon'" @change="updateAttribute"
+            v-model="v.value" :name="k" :iconType="v.type"/>
       <!-- 颜色型 (color) 属性 -->
-      <colorPicker v-if="v.type==='color'" @change="updateAttribute" v-model="v.value" :name="k"/>
+      <colorPicker style="float: left;z-index: 9;" v-if="v.type==='color'"
+          @change="updateAttribute" v-model="v.value" :name="k"/>
       <!-- 子属性 -->
       <subAttributes v-if="v.children" :keyOfAttr="k" :attributes="v.children"
         @update="subUpdate" />
@@ -44,7 +43,6 @@
 </template>
 <script>
 import colorPicker from '@/components/vue-color-picker/colorPicker';
-import ioniconPicker from './ioniconPicker';
 import iconPicker from './iconPicker';
 
 export default {
@@ -52,7 +50,6 @@ export default {
   components: {
     iconPicker,
     colorPicker,
-    ioniconPicker,
   },
   data() {
     return {

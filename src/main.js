@@ -3,7 +3,9 @@
 import Vue from 'vue';
 import iView from 'iview';
 import MuseUI from 'muse-ui';
+import 'muse-ui/dist/muse-ui.css';
 import mint from 'mint-ui';
+import 'mint-ui/lib/style.css';
 import VueHighlightJS from 'vue-highlightjs';
 import pretty from 'pretty';
 import Axios from 'axios';

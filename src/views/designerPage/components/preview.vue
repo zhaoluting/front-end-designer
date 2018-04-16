@@ -32,7 +32,6 @@
         <Button class="pre-but" type="primary" size="small" icon="code" @click="showCode">
           代码
         </Button>
-        {{$store.state.backupComponents.length}}
         <Button v-if="$store.state.backupComponents.length" type="primary" size="small"
           class="pre-but" icon="ios-undo" @click="undo">撤销</Button>
       </div>
@@ -401,6 +400,7 @@ export default {
       // 创建添加元素
       const placeholder = document.createElement('div');
       placeholder.id = 'placeholder';
+      placeholder.innerText = '插入此处';
       // 当前悬停的组件元素
       const el = document.getElementById(component.info.id);
       switch (position) {
@@ -465,7 +465,7 @@ export default {
       }
       return result;
     },
-    del: async () => {
+    async del() {
       const components = await this.$store.dispatch('delComponent', this.current.info.id);
       console.log(components);
       this.fresh();
