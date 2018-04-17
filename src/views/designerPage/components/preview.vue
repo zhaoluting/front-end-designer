@@ -20,7 +20,11 @@
             <Icon type="arrow-down-b"></Icon>
           </Button>
           <Dropdown-menu slot="list">
-            <Dropdown-item @click.native="setWidth">调整比例</Dropdown-item>
+            <Dropdown-item v-for="(w,i) in width" v-if="width[0].preview!==w.preview"
+              @click.native="setWidth(i)" :key="i">
+              调整比例({{w.attr}}:{{w.preview}}:{{w.components}})
+            </Dropdown-item>
+            <!-- <Dropdown-item @click.native="setWidth">调整比例</Dropdown-item> -->
             <Dropdown-item @click.native="previewMode=previewMode==='pc'?'mobile':'pc'">
                 {{previewMode==='pc'?'手机模式':'PC模式'}}
             </Dropdown-item>
@@ -45,13 +49,12 @@
         </div>
     </div>
     <!-- 预览视图 -->
-    <div ref="preview" v-show="previewMode==='pc'"
-      :class="{'preview-area':true, 'no-display':showType!=='预览'}"
+    <div ref="preview" :class="{'preview-area':previewMode==='pc',
+      'no-display':showType!=='预览','preview-mobile':previewMode==='mobile',}"
       @click="clickPreview" @contextmenu="rightClick" @keyup.delete="del">
       <div v-if="!item.parentId" :id="item.info.id"
-        v-for="(item,index) in components" :key="index"></div>
-    </div>
-    <iframe src="./#/preview/mobile" class="preview-mobile" v-if="previewMode==='mobile'"></iframe>
+          v-for="(item,index) in components" :key="index"></div>
+      </div>
     <div class="preview-tip" v-if="components.length===0">
         试试拖拽组件进来
     </div>
@@ -231,10 +234,10 @@ export default {
     }
   },
   methods: {
-    setWidth() { // 调整各视图宽度比
+    setWidth(index) { // 调整各视图宽度比
       const width = this.width;
-      const end = width.shift();
-      width.push(end);
+      width.unshift(width[index]);
+      width.splice(index + 1, 1);
       this.width = width;
     },
     dragOver(e) {
@@ -638,6 +641,18 @@ export default {
     min-height: 84vh;
 }
 
+.preview-mobile {
+    position: relative;
+    width: 375px;
+    height: 84vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: none;
+    box-shadow: 0 14px 45px #0000003f, 0 10px 18px #00000038;
+    min-height: 84vh;
+}
+
 .no-display {
   display: none;
 }
@@ -679,6 +694,7 @@ export default {
         margin-bottom: 0;
         background-color: #e4e4e4;
         user-select: text;
+        text-align: left;
         code {
             background: none;
             font-family: Consolas, Liberation Mono, Menlo, Courier, monospace;
@@ -696,17 +712,6 @@ export default {
     height: 100%;
     outline: none;
     overflow: auto;
-}
-
-.preview-mobile {
-    position: absolute;
-    width: 375px;
-    height: 100%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    border: none;
-    box-shadow: 0 14px 45px rgba(0, 0, 0, .247059), 0 10px 18px rgba(0, 0, 0, .219608);
 }
 
 .contextmenu>div {
