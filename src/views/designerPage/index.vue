@@ -2,15 +2,21 @@
   <div class="designer-page">
     <div class="page-head">
       <layout></layout>
-      <span class="title-head">新建项目名</span>
+      <span class="title-head">项目名 - A页面</span>
       <span class="button-head">
-        <Button class="buts" shape="circle" icon="android-share-alt"
-          @click="share.open=true" type="primary"></Button>
-        <Button class="buts" shape="circle" icon="android-settings"
-          @click="setting.open=true" type="primary"></Button>
-        <Button class="buts" shape="circle" icon="edit"
-          @click="setting.open=true" type="primary"></Button>
-        </span>
+        <Poptip content="保存当前页面" trigger="hover" placement="bottom">
+          <Button class="buts" shape="circle" icon="edit"
+            @click="setting.open=true" type="primary"></Button>
+        </Poptip>
+        <Poptip content="页面相关设置" trigger="hover" placement="bottom">
+          <Button class="buts" shape="circle" icon="android-settings"
+            @click="setting.open=true" type="primary"></Button>
+        </Poptip>
+        <Poptip content="分享当前页面" trigger="hover" placement="bottom">
+            <Button class="buts" shape="circle" icon="android-share-alt"
+              @click="share.open=true" type="primary"></Button>
+          </Poptip>
+      </span>
     </div>
     <Row class="page-content">
       <Col :span="width.attr" class="transition-part attributes-part">
@@ -42,7 +48,7 @@
       </Col>
     </Row>
     <Modal v-model="setting.open" @on-cancel="setting.open=false" title="设置" scrollable>
-      <Checkbox v-model="setting.selectEffect" @change="setSelectEffect">选中边框效果</Checkbox>
+      <Checkbox v-model="setting.selectEffect" @on-change="setSelectEffect">选中边框效果</Checkbox>
       <Button @click="setting.open=false" size="large" long slot="footer" type="primary">关闭</Button>
     </Modal>
     <Modal v-model="share.open" @on-cancel="share.open=false" title="分享当前布局" scrollable>

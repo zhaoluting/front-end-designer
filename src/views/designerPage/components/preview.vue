@@ -403,7 +403,6 @@ export default {
       // 创建添加元素
       const placeholder = document.createElement('div');
       placeholder.id = 'placeholder';
-      placeholder.innerText = '插入此处';
       // 当前悬停的组件元素
       const el = document.getElementById(component.info.id);
       switch (position) {

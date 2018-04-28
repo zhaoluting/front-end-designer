@@ -16,7 +16,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "co": "^4.6.0",
-    "codemirror": "^5.27.4",
     "epic-spinners": "^1.0.2",
     "iview": "^2.9.2",
     "jsonwebtoken": "^8.1.1",

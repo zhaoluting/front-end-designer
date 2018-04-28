@@ -7,6 +7,17 @@ const FEDSQL = db.FEDSQL; // 引入数据库
 
 const User = FEDSQL.import(userModel); // 用sequelize的import方法引入表结构，实例化了User。
 
+const getAllUsers = async () => { // 获取全部用户
+  const result = await User.findAll();// 查找全部的用户
+  const allUsers = result.map((user) => {
+    return {
+      id: user.id,
+      userName: user.userName,
+    };
+  });
+  return allUsers; // 返回数据
+};
+
 const getUserById = async (id) => {
   const userInfo = await User.findOne({
     where: { id },
@@ -40,6 +51,7 @@ const updateUser = async (data) => {
 };
 
 module.exports = {
+  getAllUsers,
   getUserById, // 导出getUserById的方法，将会在controller里调用
   getUserByName,
   createUser,

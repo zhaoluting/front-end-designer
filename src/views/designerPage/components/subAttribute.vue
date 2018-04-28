@@ -7,9 +7,9 @@
                 value:'按钮'
             }
         }-->
-  <Form :label-width="80">
-    <Form-item :label="k" v-if="attr" v-for="(v,k,i) in attr" :key="i"
-        style="margin-right: 8px;margin-bottom: 5px;">
+    <div v-if="attr" v-for="(v,k,i) in attr" :key="i"
+        style="margin-right: 8px;margin-bottom: 5px;text-align: left">
+        <h3 style="color: #828282;margin-top: 10px;margin-bottom: 5px;">{{k}}</h3>
       <!-- 文本型（text）属性 -->
       <Input v-if="v.type==='text'" v-model="v.value" @on-change="updateAttribute" size="small"/>
       <!-- 数字型（number）属性 -->
@@ -32,13 +32,12 @@
       <iconPicker v-if="v.type==='icon' || v.type==='ionicon'" @change="updateAttribute"
             v-model="v.value" :name="k" :iconType="v.type"/>
       <!-- 颜色型 (color) 属性 -->
-      <colorPicker style="float: left;z-index: 9;" v-if="v.type==='color'"
+      <colorPicker style="z-index: 9;" v-if="v.type==='color'"
           @change="updateAttribute" v-model="v.value" :name="k"/>
       <!-- 子属性 -->
       <subAttributes v-if="v.children" :keyOfAttr="k" :attributes="v.children"
         @update="subUpdate" />
-    </Form-item>
-  </Form>
+    </div>
   </div>
 </template>
 <script>

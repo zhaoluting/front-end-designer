@@ -33,10 +33,12 @@ export default {
         key: 'age',
       }],
       programList: [],
+      allUsers: [],
     };
   },
   mounted() {
     this.userForm = JSON.parse(localStorage.fontEndUserInfo);
+    this.getAllUsers();
   },
   methods: {
     onSubmit() {
@@ -52,6 +54,11 @@ export default {
       }, (err) => {
         console.log(err);
         this.$Message.error('请求错误！');
+      });
+    },
+    getAllUsers() {
+      this.$http.get('/auth/user/getAllUsers').then((res) => {
+        this.allUsers = res.data;
       });
     },
   },

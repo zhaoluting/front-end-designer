@@ -5,6 +5,16 @@ const jwt = require('jsonwebtoken');
 // const jwtKoa = require('koa-jwt');
 // const bcrypt = require('bcryptjs');
 
+const getAllUsers = async (ctx) => { // 获取所有色盘
+  const result = await user.getAllUsers();
+  ctx.body = {
+    total: result.length,
+    success: true,
+    result,
+  }; // 将请求的结果放到response的body里返回
+};
+
+
 const getUserById = async (ctx) => {
   const id = ctx.params.id; // 获取url里传过来的参数里的id
   const result = await user.getUserById(id);
@@ -87,6 +97,7 @@ const updateUser = async (ctx) => {
 };
 
 module.exports = {
+  getAllUsers,
   getUserById,
   postUserAuth,
   getUserByName,
