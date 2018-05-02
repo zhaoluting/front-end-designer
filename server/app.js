@@ -6,7 +6,8 @@ const logger = require('koa-logger'); // 引入各种依赖
 const jwt = require('koa-jwt');
 // mysql
 const auth = require('./routes/auth.js'); // 引入auth
-const colorDisk = require('./routes/colorDisk.js'); // 引入auth
+const colorDisk = require('./routes/colorDisk.js');
+const projectManage = require('./routes/projectManage.js');
 
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
@@ -48,6 +49,7 @@ app.on('error', (err) => {
 koaRouter.use('/auth', auth.routes());
 // 所有走/api/打头的请求都需要经过jwt中间件的验证。secret密钥必须跟我们当初签发的secret一致
 koaRouter.use('/color', jwt({ secret: 'vue-koa-demo' }), colorDisk.routes());
+koaRouter.use('/project', jwt({ secret: 'vue-koa-demo' }), projectManage.routes());
 
 
 app.use(koaRouter.routes()); // 将路由规则挂载到Koa上。

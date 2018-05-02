@@ -8,14 +8,20 @@
     </a>
     <Form :label-width="70">
       <Form-item label="用户名:">{{userForm.userName}}</Form-item>
-      <Form-item label="密码:">{{userForm.password}}</Form-item>
+      <!-- <Form-item label="密码:">{{userForm.password}}</Form-item> -->
       <Form-item label="邮箱:">{{userForm.email}}</Form-item>
       <Form-item label="用户类型:">{{characterList[userForm.character]}}</Form-item>
     </Form>
   </Card>
   <Card class="program-card">
     <p slot="title">设计台管理</p>
-    <Table :columns="programColumns" :data="programList"></Table>
+    <Icon @click.native="openEditModel('新增项目')" type="plus-circled"></Icon>
+    <Collapse v-model="openPanel" style="text-align: left;">
+      <Panel v-for="item in projectList" :name="String(item.id)" :key="item.id">
+          {{item.projectDetail.project_name}}
+          <p slot="content">{{item}}</p>
+      </Panel>
+  </Collapse>
   </Card>
   <Modal v-model="modalShow" title="修改个人资料" @on-ok="onSubmit" @on-cancel="modalShow = false">
     <Form :model="userForm" :label-width="70">
@@ -34,6 +40,28 @@
           <Option label="开发者" value="developer"></Option>
           <Option label="产品经理" value="productManager"></Option>
           <Option label="其他" value="other"></Option>
+        </Select>
+      </Form-item>
+    </Form>
+  </Modal>
+  <Modal v-model="editModalShow" title="项目" @on-ok="editProject" @on-cancel="closeEditModal">
+    <Form :model="projectForm" :label-width="70">
+      <Form-item label="项目名">
+        <Input v-model="projectForm.project_name" placeholder="项目名"></Input>
+      </Form-item>
+      <Form-item label="描述">
+        <Input v-model="projectForm.descr" placeholder="描述"></Input>
+      </Form-item>
+    </Form>
+  </Modal>
+  <Modal v-model="permissionModalShow" title="管理项目成员"
+    @on-ok="editPermission" @on-cancel="closeEditModal">
+    <Form :model="projectForm" :label-width="70">
+      <Form-item label="项目成员">
+        <Select v-model="permissonList" placeholder="选择成员">
+          <Option v-for="user in allUsers" :key="user.id" :value="user.id">
+            【{{characterList[user.character]}}】{{user.userName}}
+          </Option>
         </Select>
       </Form-item>
     </Form>

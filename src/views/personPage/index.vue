@@ -10,6 +10,7 @@ export default {
   },
   data() {
     return {
+      // 个人资料
       modalShow: false,
       userForm: {
         id: 0,
@@ -24,23 +25,31 @@ export default {
         productManager: '产品经理',
         other: '其他',
       },
-      programColumns: [{
-        title: '设计台名称',
-        key: 'name',
-      },
-      {
-        title: '地址',
-        key: 'age',
-      }],
-      programList: [],
+      // 项目管理
+      projectList: [],
+      openPanel: [],
       allUsers: [],
+      // 项目管理
+      editModalShow: false,
+      modalTitle: '新增项目',
+      projectForm: {},
+      // 管理项目成员
+      permissionModalShow: false,
+      permissonList: [],
     };
   },
   mounted() {
     this.userForm = JSON.parse(localStorage.fontEndUserInfo);
+    this.closeEditModal();
     this.getAllUsers();
+    this.getAllproject();
   },
   methods: {
+    getAllproject() {
+      this.$http.get(`/project/getProjectByUserId/${this.userForm.id}`).then((res) => {
+        this.projectList = res.data.result;
+      });
+    },
     onSubmit() {
       this.$http.post('/auth/user/updateUser', this.userForm).then((res) => {
         if (res.data.success) { // 如果成功
@@ -58,9 +67,51 @@ export default {
     },
     getAllUsers() {
       this.$http.get('/auth/user/getAllUsers').then((res) => {
-        this.allUsers = res.data;
+        this.allUsers = res.data.result;
       });
     },
+    openEditModel(type, row) {
+      this.modalTitle = type;
+      this.editModalShow = true;
+      if (row) {
+        this.projectForm = JSON.parse(JSON.stringify(row.projectDetial));
+      }
+    },
+    closeEditModal() {
+      this.editModalShow = false;
+      this.permissionModalShow = false;
+      this.projectForm = {
+        id: '',
+        project_name: '',
+        creator: this.userForm.id,
+        templet_id: '',
+        descr: '',
+      };
+      this.permissonList = [{
+        user_id: this.userForm.id,
+        project_id: '',
+        write: 1,
+        setting: 1,
+      }];
+    },
+    editProject() {
+      if (this.projectForm.id === '') {
+        this.newProject('createProject', '项目新增');
+      }
+    },
+    newProject(url, text) {
+      this.$http.post(`/project/${url}`, this.projectForm).then((res) => {
+        if (res.data.success) { // 如果成功
+          this.$Message.success(`${text}成功！`);
+        } else if (!res.data.success) {
+          this.$Message.error(`${text}失败！`);
+        }
+      }, (err) => {
+        console.log(err);
+        this.$Message.error('请求错误！');
+      });
+    },
+    editPermission() {},
   },
 };
 </script>

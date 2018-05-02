@@ -13,6 +13,7 @@ const getAllUsers = async () => { // 获取全部用户
     return {
       id: user.id,
       userName: user.userName,
+      character: user.character,
     };
   });
   return allUsers; // 返回数据
