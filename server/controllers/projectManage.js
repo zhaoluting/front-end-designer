@@ -31,6 +31,8 @@ const getProjectByUserId = async (ctx) => { // 获取
     if (index) result.push(permissions[index].dataValues);
   }
   for (const index in result) {
+    result[index].write = Boolean(result[index].write);
+    result[index].setting = Boolean(result[index].setting);
     result[index].projectDetail = await projectManageModel.getProjectById(result[index].project_id);
     result[index].allPermission = await projectPermissionModel.getQueryProjectPermission({
       project_id: permissions[index].project_id,
@@ -64,7 +66,16 @@ const createProject = async (ctx) => {
 const removeProject = async (ctx) => {
   const id = ctx.params.id;
   const result = await projectManageModel.removeProject(id);
-
+  const permissions = await projectPermissionModel.getQueryProjectPermission({
+    project_id: id,
+  });
+  const results = [];
+  for (const index in permissions) {
+    if (index) results.push(permissions[index].dataValues);
+  }
+  for (const index in results) {
+    results[index].del = await projectPermissionModel.removeProjectPermission(results[index].id);
+  }
   ctx.body = {
     success: result,
   };
@@ -79,6 +90,33 @@ const updateProject = async (ctx) => {
   };
 };
 
+const createProjectPermission = async (ctx) => {
+  const data = ctx.request.body; // post请求，数据是在request.body里的
+  const result = await projectPermissionModel.createProjectPermission(data);
+
+  ctx.body = {
+    success: result,
+  };
+};
+
+const removeProjectPermission = async (ctx) => {
+  const id = ctx.params.id;
+  const result = await projectPermissionModel.removeProjectPermission(id);
+
+  ctx.body = {
+    success: result,
+  };
+};
+
+const updateProjectPermission = async (ctx) => {
+  const data = ctx.request.body;
+  const result = await projectPermissionModel.updateProjectPermission(data);
+
+  ctx.body = {
+    success: result,
+  };
+};
+
 module.exports = {
   getAllProject,
   getProjectById,
@@ -86,4 +124,7 @@ module.exports = {
   createProject,
   removeProject,
   updateProject,
+  createProjectPermission,
+  removeProjectPermission,
+  updateProjectPermission,
 };

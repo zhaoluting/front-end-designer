@@ -18,6 +18,10 @@ const getQueryProjectPermission = async (form) => {
     where: form,
   };
   const Permission = await projectPermission.findAll(queryStr);
+  for (const index in Permission) {
+    Permission[index].write = Boolean(Permission[index].write);
+    Permission[index].setting = Boolean(Permission[index].setting);
+  }
 
   return Permission; // 返回数据
 };
@@ -27,11 +31,10 @@ const createProjectPermission = async (data) => {
   return result;
 };
 
-const removeProjectPermission = async (data) => {
+const removeProjectPermission = async (id) => {
   await projectPermission.destroy({
     where: {
-      user_id: data.user_id,
-      project_id: data.project_id,
+      id,
     },
   });
 

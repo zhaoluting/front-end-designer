@@ -72,6 +72,10 @@ const postUserAuth = async (ctx) => {
       };
       const secret = 'vue-koa-demo'; // 指定密钥，这是之后用来判断token合法性的标志
       const token = jwt.sign(userToken, secret); // 签发token
+      // ctx.cookies.set('user-token', token, {
+      //   maxAge: 86400000,
+      //   httpOnly: true,
+      // });
       ctx.body = {
         success: true,
         token, // 返回token

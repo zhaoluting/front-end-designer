@@ -1,7 +1,7 @@
 <div class="person-page">
   <layout ref="layoutHead"></layout>
   <Card class="person-card">
-    <p slot="title">个人资料</p>
+    <h3 slot="title">个人资料</h3>
     <a href="#" slot="extra" @click.prevent="modalShow = true" style="font-size: 12px;">
         <Icon type="edit"></Icon>
         修改
@@ -14,14 +14,108 @@
     </Form>
   </Card>
   <Card class="program-card">
-    <p slot="title">设计台管理</p>
-    <Icon @click.native="openEditModel('新增项目')" type="plus-circled"></Icon>
-    <Collapse v-model="openPanel" style="text-align: left;">
-      <Panel v-for="item in projectList" :name="String(item.id)" :key="item.id">
-          {{item.projectDetail.project_name}}
-          <p slot="content">{{item}}</p>
-      </Panel>
-  </Collapse>
+    <h3 slot="title">设计台管理</h3>
+    <p @click="openEditModel('新建项目')" class="add-project-icon">
+      <Icon type="android-add"></Icon>
+      新建项目
+    </p>
+    <div class="project-list">
+      <div v-for="(item, index) in projectList" :key="item.id" class="project-box">
+        <!-- <h2 class="box-title">{{item.projectDetail.project_name}}</h2> -->
+        <div class="box-content">
+          <Tabs>
+              <Tab-pane :label="item.projectDetail.project_name" icon="folder">
+                <p class="add-project-icon">
+                  <span @click="openEditModel('修改项目', item)" >
+                      <Icon type="edit"></Icon>
+                      修改&nbsp;
+                  </span>
+                  <span @click="delItem('removeProject', item.project_id)" >
+                      <Icon type="trash-a"></Icon>
+                      删除
+                  </span>
+                </p>
+                <p>
+                  <b>项目名：</b>
+                  {{item.projectDetail.project_name}}
+                </p>
+                <p>
+                  <b>项目描述：</b>
+                  {{item.projectDetail.descr}}
+                </p>
+                <p>
+                  <b>创建者：</b>
+                  {{usersMap[item.projectDetail.creator]}}
+                </p>
+                <p>
+                  <b>权限：</b>
+                  <Icon type="checkmark-round" class="check-icon"
+                    :style="{background: item.write ? '#ce5656' : '#b5b5b5'}"></Icon>设计
+                  <Icon type="checkmark-round" class="check-icon"
+                    :style="{background: item.setting ? '#ce5656' : '#b5b5b5'}"></Icon>管理
+                </p>
+              </Tab-pane>
+              <Tab-pane label="成员管理" icon="person-stalker">
+                <p @click="openPermissionModel(item.project_id)" class="add-project-icon">
+                  <Icon type="android-add"></Icon>
+                  添加成员
+                </p>
+                <p class="row-table">
+                  <Row class="row-head">
+                      <Col span="6" offset="1">成员名</Col>
+                      <Col span="7">设计权限</Col>
+                      <Col span="7">管理权限</Col>
+                  </Row>
+                  <Row v-for="(permission,index) in item.allPermission"
+                      :key="index" class="row-content">
+                      <Col span="6" offset="1">{{usersMap[permission.user_id]}}</Col>
+                      <Col span="7">
+                        <i-switch v-model="permission.write" v-if="item.setting"
+                                  @on-change="editPermission(permission)">
+                        </i-switch>
+                        <Icon type="checkmark-round" class="check-icon" v-else
+                            :style="{background: permission.write ? '#ce5656' : '#b5b5b5'}"></Icon>
+                      </Col>
+                      <Col span="7">
+                        <i-switch v-model="permission.setting" v-if="item.setting"
+                                  @on-change="editPermission(permission)">
+                        </i-switch>
+                        <Icon type="checkmark-round" class="check-icon" v-else
+                          :style="{background: permission.setting ? '#ce5656' : '#b5b5b5'}"></Icon>
+                      </Col>
+                      <Col span="3">
+                        <Button type="text" icon="trash-a" @click="delPermission(item, permission)">
+                            删除
+                        </Button>
+                      </Col>
+                  </Row>
+                </p>
+              </Tab-pane>
+              <Tab-pane label="页面管理" icon="person-stalker">
+                <!-- <p @click="openTempletModel(item.project_id)" class="add-project-icon">
+                  <Icon type="images"></Icon>
+                  添加页面
+                </p>
+                <p class="row-table">
+                  <Row class="row-head">
+                      <Col span="6" offset="1">页面名称</Col>
+                      <Col span="4">创建者</Col>
+                      <Col span="7">描述</Col>
+                      <Col span="6">地址</Col>
+                  </Row>
+                  <Row v-for="(permission,index) in item.allPermission"
+                      :key="index" class="row-content">
+                      <Col span="6" offset="1"></Col>
+                      <Col span="4">{{usersMap[permission.user_id]}}</Col>
+                      <Col span="7">描述</Col>
+                      <Col span="6">地址</Col>
+                  </Row>
+                </p> -->
+              </Tab-pane>
+          </Tabs>
+        </div>
+      </div>
+    </div>
   </Card>
   <Modal v-model="modalShow" title="修改个人资料" @on-ok="onSubmit" @on-cancel="modalShow = false">
     <Form :model="userForm" :label-width="70">
@@ -44,7 +138,8 @@
       </Form-item>
     </Form>
   </Modal>
-  <Modal v-model="editModalShow" title="项目" @on-ok="editProject" @on-cancel="closeEditModal">
+  <Modal v-model="editModalShow" :title="modalTitle"
+        @on-ok="editProject" @on-cancel="closeEditModal">
     <Form :model="projectForm" :label-width="70">
       <Form-item label="项目名">
         <Input v-model="projectForm.project_name" placeholder="项目名"></Input>
@@ -54,16 +149,33 @@
       </Form-item>
     </Form>
   </Modal>
-  <Modal v-model="permissionModalShow" title="管理项目成员"
-    @on-ok="editPermission" @on-cancel="closeEditModal">
-    <Form :model="projectForm" :label-width="70">
-      <Form-item label="项目成员">
-        <Select v-model="permissonList" placeholder="选择成员">
-          <Option v-for="user in allUsers" :key="user.id" :value="user.id">
-            【{{characterList[user.character]}}】{{user.userName}}
-          </Option>
-        </Select>
+  <Modal v-model="editPermissionModalShow" title="添加成员"
+        @on-ok="editPermission" @on-cancel="closePermissionModal">
+    <Form :model="permissionForm" :label-width="70">
+      <Form-item label="用户">
+          <Select v-model="permissionForm.user_id" placeholder="选择用户">
+            <Option v-for="item in allUsers" :key="item.id" :value="item.id">
+                <Tag>{{characterList[item.character]}}</Tag>{{ item.userName }}
+            </Option>
+          </Select>
+      </Form-item>
+      <Form-item label="设计权限">
+          <i-switch v-model="permissionForm.write"></i-switch>
+      </Form-item>
+      <Form-item label="管理权限">
+          <i-switch v-model="permissionForm.setting"></i-switch>
       </Form-item>
     </Form>
   </Modal>
+  <!-- <Modal v-model="editTempletModalShow" :title="modalTempletTitle"
+        @on-ok="editTemplet" @on-cancel="closeEditTempletModal">
+    <Form :model="templetForm" :label-width="70">
+      <Form-item label="项目名">
+        <Input v-model="templetForm.project_name" placeholder="项目名"></Input>
+      </Form-item>
+      <Form-item label="描述">
+        <Input v-model="templetForm.descr" placeholder="描述"></Input>
+      </Form-item>
+    </Form>
+  </Modal> -->
 </div>
