@@ -21,9 +21,18 @@ const getTempletById = async (id) => {
   return templet; // 返回数据
 };
 
+const getQueryTemplet = async (form) => {
+  const queryStr = {
+    where: form,
+  };
+  const Templet = await templets.findAll(queryStr);
+
+  return Templet; // 返回数据
+};
+
 const createTemplet = async (data) => {
-  await templets.create(data);
-  return true;
+  const result = await templets.create(data);
+  return result;
 };
 
 const removeTemplet = async (id) => {
@@ -49,6 +58,7 @@ const updateTemplet = async (data) => {
 module.exports = {
   getAllTemplet,
   getTempletById,
+  getQueryTemplet,
   createTemplet,
   removeTemplet,
   updateTemplet,

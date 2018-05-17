@@ -17,11 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.CHAR(50),
       allowNull: true,
     },
-    templet_id: {
-      type: DataTypes.CHAR(255),
-      allowNull: true,
-      defaultValue: '',
-    },
     descr: {
       type: DataTypes.CHAR(255),
       allowNull: true,

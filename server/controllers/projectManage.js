@@ -2,6 +2,7 @@
 
 const projectManageModel = require('../models/projectManage.js'); // 引入表结构
 const projectPermissionModel = require('../models/projectPermission.js'); // 引入表结构
+const templetPageModel = require('../models/templetPage.js'); // 引入表结构
 
 const getAllProject = async (ctx) => {
   const result = await projectManageModel.getAllProject();
@@ -35,6 +36,9 @@ const getProjectByUserId = async (ctx) => { // 获取
     result[index].setting = Boolean(result[index].setting);
     result[index].projectDetail = await projectManageModel.getProjectById(result[index].project_id);
     result[index].allPermission = await projectPermissionModel.getQueryProjectPermission({
+      project_id: permissions[index].project_id,
+    });
+    result[index].allTemplet = await templetPageModel.getQueryTemplet({
       project_id: permissions[index].project_id,
     });
   }
@@ -117,6 +121,45 @@ const updateProjectPermission = async (ctx) => {
   };
 };
 
+
+const createTemplet = async (ctx) => {
+  const data = ctx.request.body; // post请求，数据是在request.body里的
+  const result = await templetPageModel.createTemplet(data);
+
+  ctx.body = {
+    success: result,
+  };
+};
+
+const removeTemplet = async (ctx) => {
+  const id = ctx.params.id;
+  const result = await templetPageModel.removeTemplet(id);
+
+  ctx.body = {
+    success: result,
+  };
+};
+
+const updateTemplet = async (ctx) => {
+  const data = ctx.request.body;
+  const result = await templetPageModel.updateTemplet(data);
+
+  ctx.body = {
+    success: result,
+  };
+};
+
+const getTempletById = async (ctx) => { // 获取
+  const id = ctx.params.id;
+  const result = await templetPageModel.getTempletById(id);
+
+  ctx.body = {
+    total: result.length,
+    success: true,
+    result,
+  };
+};
+
 module.exports = {
   getAllProject,
   getProjectById,
@@ -127,4 +170,8 @@ module.exports = {
   createProjectPermission,
   removeProjectPermission,
   updateProjectPermission,
+  createTemplet,
+  removeTemplet,
+  updateTemplet,
+  getTempletById,
 };

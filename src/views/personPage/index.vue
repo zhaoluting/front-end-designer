@@ -36,12 +36,17 @@ export default {
       // 管理项目成员
       editPermissionModalShow: false,
       permissionForm: {},
+      // 管理项目页面
+      editTempletModalShow: false,
+      templetForm: {},
+      modalTempletTitle: '新建页面',
     };
   },
   mounted() {
     this.userForm = JSON.parse(localStorage.fontEndUserInfo);
     this.closeEditModal();
     this.closePermissionModal();
+    this.closeEditTempletModal();
     this.getAllUsers();
     this.getAllproject();
   },
@@ -88,7 +93,6 @@ export default {
         id: '',
         project_name: '',
         creator: this.userForm.id,
-        templet_id: '',
         descr: '',
       };
     },
@@ -176,6 +180,40 @@ export default {
     delPermission(item, permission) {
       if (Number(item.projectDetail.creator) === permission.user_id) this.$Message.error('不允许删除创建者');
       else this.delItem('removeProjectPermission', permission.id);
+    },
+    openTempletModel(type, item, row) {
+      this.modalTempletTitle = type;
+      this.editTempletModalShow = true;
+      if (row) {
+        this.templetForm = JSON.parse(JSON.stringify(row));
+      } else {
+        this.templetForm.project_id = item.projectDetail.id;
+      }
+    },
+    closeEditTempletModal() {
+      this.editTempletModalShow = false;
+      this.templetForm = {
+        id: '',
+        templet_name: '',
+        project_id: '',
+        creator: this.userForm.id,
+        descr: '',
+        detail: '',
+      };
+    },
+    editTemplet() {
+      if (this.templetForm.id === '') {
+        this.postProject('createTemplet', '页面新增', this.templetForm);
+      } else {
+        this.postProject('updateTemplet', '页面修改', this.templetForm);
+      }
+    },
+    onCopy() {
+      this.$Message.success('复制成功');
+    },
+    goToTemplet(template) {
+      const url = `${location.origin}${location.pathname}#/designerPage?templateId=${template.id}`;
+      window.open(url);
     },
   },
 };

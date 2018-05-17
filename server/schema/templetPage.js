@@ -25,11 +25,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.CHAR(255),
       allowNull: true,
     },
-    selectEffect: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true,
-      defaultValue: '1',
-    },
     detail: {
       type: DataTypes.TEXT,
       allowNull: true,

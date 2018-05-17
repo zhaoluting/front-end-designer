@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
+import VueClipboard from 'vue-clipboard2';
 import iView from 'iview';
 import MuseUI from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
@@ -28,6 +29,8 @@ router.beforeEach((to, from, next) => {
     } else next('/login'); // 否则跳转回登录页
   }
 });
+
+Vue.use(VueClipboard);
 
 Vue.config.productionTip = false;
 Vue.use(iView);

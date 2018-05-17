@@ -209,28 +209,15 @@ export default {
       e.preventDefault();
     };
 
-    // 读取云端数据
-    const id = this.$route.params.id;
-    const query = new this.$lean.Query('Share');
+    const id = location.href.split('?templateId=')[1] || '';
     if (id) {
-      query.get(id).then((share) => {
-        const store = share.get('store');
-        if (store) {
-          this.$store.commit('setState', store);
-          // dom没有渲染完成 window.myVue为undefined，加个延迟
-          setTimeout(() => {
-            this.mount();
-          }, 0);
-        }
+      this.$http.get(`/project/getTempletById/${id}`).then((res) => {
+        if (res.data.result) this.$store.commit('setState', JSON.parse(res.data.result.detail));
+        // dom没有渲染完成 window.myVue为undefined，加个延迟
+        setTimeout(() => {
+          this.mount();
+        }, 0);
       });
-    } else if (localStorage.store) {
-      // 读取本地数据
-      const store = JSON.parse(localStorage.store);
-      this.$store.commit('setState', store);
-      // dom没有渲染完成 window.myVue为undefined，加个延迟
-      setTimeout(() => {
-        this.mount();
-      }, 0);
     }
   },
   methods: {

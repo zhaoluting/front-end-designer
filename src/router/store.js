@@ -35,7 +35,7 @@ const instance = {
       // obj = mergeDeep(JSON.parse(JSON.stringify(state)), obj)
       Object.assign(state, obj);
       // 保存本地
-      localStorage.store = JSON.stringify(state);
+      // localStorage.store = JSON.stringify(state);
     },
   },
   methods: {
