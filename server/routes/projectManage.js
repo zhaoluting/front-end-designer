@@ -3,6 +3,7 @@ const router = require('koa-router')();
 
 router.get('/getAllProject', projectManage.getAllProject);
 router.get('/getProjectByUserId/:id', projectManage.getProjectByUserId);
+router.get('/getProjectById/:id', projectManage.getProjectById);
 router.get('/getTempletById/:id', projectManage.getTempletById);
 router.post('/createProject', projectManage.createProject);
 router.post('/createProjectPermission', projectManage.createProjectPermission);

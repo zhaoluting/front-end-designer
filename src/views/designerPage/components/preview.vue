@@ -212,12 +212,15 @@ export default {
     const id = location.href.split('?templateId=')[1] || '';
     if (id) {
       this.$http.get(`/project/getTempletById/${id}`).then((res) => {
-        if (res.data.result) this.$store.commit('setState', JSON.parse(res.data.result.detail));
+        if (res.data.result.detail) this.$store.commit('setState', JSON.parse(res.data.result.detail));
         // dom没有渲染完成 window.myVue为undefined，加个延迟
         setTimeout(() => {
           this.mount();
         }, 0);
+        this.$emit('setTemplet', res.data.result);
       });
+    } else {
+      this.$emit('newTemplet');
     }
   },
   methods: {

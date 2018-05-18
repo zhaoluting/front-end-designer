@@ -78,7 +78,9 @@ export default {
   mounted() {
     this.updateUser();
     const hash = window.location.hash.split('/');
-    if (hash[1] && hash[1] !== '') this.activePage = hash[1];
+    if (hash[1] && hash[1] !== '') {
+      this.activePage = hash[1].split('?')[0];
+    }
   },
   methods: {
     loginOut() {

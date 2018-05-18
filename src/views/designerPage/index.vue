@@ -2,23 +2,24 @@
   <div class="designer-page">
     <div class="page-head">
       <layout></layout>
-      <span class="title-head">项目名 - A页面</span>
+      <span class="title-head">{{project.project_name}} - {{template.templet_name}}</span>
       <span class="button-head">
         <Poptip content="保存当前页面" trigger="hover" placement="bottom">
-          <Button class="buts" shape="circle" icon="edit"
-            @click="setting.open=true" type="primary"></Button>
+          <Button class="buts" shape="circle" icon="archive"
+            @click="editTemplet" type="primary"></Button>
         </Poptip>
         <Poptip content="页面相关设置" trigger="hover" placement="bottom">
           <Button class="buts" shape="circle" icon="android-settings"
             @click="setting.open=true" type="primary"></Button>
         </Poptip>
         <Poptip content="分享当前页面" trigger="hover" placement="bottom">
-            <Button class="buts" shape="circle" icon="android-share-alt"
-              @click="share.open=true" type="primary"></Button>
-          </Poptip>
+          <Button class="buts" shape="circle" icon="android-share-alt"
+            @click="createShare" type="primary"></Button>
+        </Poptip>
       </span>
     </div>
     <Row class="page-content">
+      <Spin fix v-if="spinShow">对不起，您不在项目中</Spin>
       <Col :span="width.attr" class="transition-part attributes-part">
         <div class="top-select">
           <p style="font-weight: 900;">
@@ -41,7 +42,7 @@
         </div>
       </Col>
       <Col :span="width.preview" class="transition-part preview-part">
-          <preview ref="preview"/>
+          <preview ref="preview" @setTemplet="setTemplet" @newTemplet="newTemplet"/>
       </Col>
       <Col :span="width.components" class="transition-part components-part">
           <components ref="components"/>
@@ -51,15 +52,35 @@
       <Checkbox v-model="setting.selectEffect" @on-change="setSelectEffect">选中边框效果</Checkbox>
       <Button @click="setting.open=false" size="large" long slot="footer" type="primary">关闭</Button>
     </Modal>
-    <Modal v-model="share.open" @on-cancel="share.open=false" title="分享当前布局" scrollable>
-      <Button @click="createShare" v-if="!share.url" type="primary" size="small">点击生成</Button>
-      <p style="margin-top:20px">
-        分享地址：<Input style="width:400px;" size="small" v-model="share.url"></Input>
+    <Modal v-model="share.open" @on-cancel="share.open=false" title="分享" scrollable>
+      <p>
+        设计地址：<a :href="share.url" target="_blank">{{share.url}}</a>
+        <Button type="text" size="small" icon="ios-copy"
+            v-clipboard:copy="share.url" v-clipboard:success="onCopy"></Button>
       </p>
       <p style="margin-top:20px">
-        体验地址：<Input style="width:400px;" size="small" v-model="share.experience"></Input>
+        预览地址：<a :href="share.experience" target="_blank">{{share.experience}}</a>
+        <Button type="text" size="small" icon="ios-copy"
+            v-clipboard:copy="share.experience" v-clipboard:success="onCopy"></Button>
       </p>
       <Button @click="share.open=false" size="large" long slot="footer" type="primary">关闭</Button>
+    </Modal>
+    <Modal v-model="addTempletModalShow" title="新建页面"
+          @on-ok="createTemplet" @on-cancel="addTempletModalShow = false">
+      <Form :model="template" :label-width="70">
+        <Form-item label="所属项目">
+          <Select v-model="template.project_id" placeholder="所属项目" @on-change="changeProject">
+            <Option v-for="(project, index) in projectList" :key="index"
+                  :label="project.projectDetail.project_name" :value="project.project_id"></Option>
+          </Select>
+        </Form-item>
+        <Form-item label="页面名称">
+          <Input v-model="template.templet_name" placeholder="页面名称"></Input>
+        </Form-item>
+        <Form-item label="描述">
+          <Input v-model="template.descr" placeholder="描述"></Input>
+        </Form-item>
+      </Form>
     </Modal>
   </div>
 </template>
@@ -93,9 +114,29 @@ export default {
       selectField: {
         value: '属性',
       },
+      template: {
+        id: '',
+        templet_name: '',
+        project_id: '',
+        creator: '',
+        descr: '',
+        detail: '',
+      },
+      project: {
+        id: '',
+        project_name: '',
+      },
+      userForm: {},
+      projectList: [],
+      permission: {
+        id: '',
+      },
+      spinShow: false,
+      addTempletModalShow: false,
     };
   },
   mounted() {
+    this.userForm = JSON.parse(localStorage.fontEndUserInfo);
     this.setSelectEffect(this.setting.selectEffect);
   },
   computed: {
@@ -195,11 +236,76 @@ export default {
       style.appendChild(textNode);
     },
     createShare() {
-      const share = new this.$lean.Object('Share');
-      share.set('store', this.$store.state);
-      share.save().then((res) => {
-        this.share.url = `${location.origin}${location.pathname}#/share/${res.id}`;
-        this.share.experience = `${location.origin}${location.pathname}#/preview/pc/${res.id}`;
+      this.share.open = true;
+      this.share.url = `${location.origin}${location.pathname}#/designerPage?templateId=${this.template.id}`;
+      this.share.experience = `${location.origin}${location.pathname}#/preview/pc?templateId=${this.template.id}`;
+    },
+    setTemplet(template) {
+      this.template = template;
+      this.$http.get(`/project/getProjectById/${template.project_id}`).then((res) => {
+        if (res.data.result) this.project = res.data.result;
+      });
+      this.getAllproject();
+    },
+    newTemplet() {
+      this.userForm = JSON.parse(localStorage.fontEndUserInfo);
+      this.getAllproject();
+      this.addTempletModalShow = true;
+    },
+    async createTemplet() {
+      this.template.creator = this.userForm.id;
+      this.$http.post('/project/createTemplet', this.template).then((res) => {
+        if (res.data.success) { // 如果成功
+          this.template.id = res.data.success.id;
+          this.$Message.success('页面新增成功！');
+        } else if (!res.data.success) {
+          this.$Message.error('页面新增失败！');
+        }
+      });
+    },
+    changeProject() {
+      this.projectList.forEach((element) => {
+        if (element.project_id === this.template.project_id) {
+          this.project = element.projectDetail;
+          this.permission = element;
+        }
+      });
+    },
+    onCopy() {
+      this.$Message.success('复制成功');
+    },
+    async editTemplet() {
+      this.$store.commit('setUserInfo', this.userForm);
+      this.template.detail = JSON.stringify(this.$store.state);
+      if (this.template.id === '') {
+        this.newTemplet();
+      } else {
+        console.log('页面保存');
+        if (this.permission.write) this.postProject('updateTemplet', '页面保存', this.template);
+        else this.$Message.error('没有操作权限');
+      }
+    },
+    postProject(url, text, data) {
+      this.$http.post(`/project/${url}`, data).then((res) => {
+        if (res.data.success) { // 如果成功
+          this.$Message.success(`${text}成功！`);
+        } else if (!res.data.success) {
+          this.$Message.error(`${text}失败！`);
+        }
+      }, (err) => {
+        console.log(err);
+        this.$Message.error('请求错误！');
+      });
+    },
+    getAllproject() {
+      this.$http.get(`/project/getProjectByUserId/${this.userForm.id}`).then((res) => {
+        this.projectList = res.data.result;
+        this.projectList.forEach((element) => {
+          if (element.project_id === this.template.project_id) {
+            this.permission = element;
+          }
+        });
+        if (this.permission.id === '' && this.project.id !== '') this.spinShow = true;
       });
     },
   },
@@ -243,7 +349,7 @@ export default {
     .button-head {
       position: fixed;
       top: 0px;
-      right: 200px;
+      right: 240px;
       z-index: 999;
       .buts {
         float: right;
