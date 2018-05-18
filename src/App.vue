@@ -25,6 +25,7 @@ html, body {
   color: #2c3e50;
   margin-top: 0px;
   height: 100%;
+  background: #fff;
 }
 .icon {
    width: 1em; height: 1em;

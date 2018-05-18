@@ -18,6 +18,10 @@ module.exports = {
       '/color':{
         target: 'http://localhost:3000',
         changeOrigin: true
+      },
+      '/project':{
+        target: 'http://localhost:3000',
+        changeOrigin: true
       }
     },
 

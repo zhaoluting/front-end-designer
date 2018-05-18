@@ -1,7 +1,14 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
+import VueClipboard from 'vue-clipboard2';
 import iView from 'iview';
+import MuseUI from 'muse-ui';
+import 'muse-ui/dist/muse-ui.css';
+import mint from 'mint-ui';
+import 'mint-ui/lib/style.css';
+import VueHighlightJS from 'vue-highlightjs';
+import pretty from 'pretty';
 import Axios from 'axios';
 import 'iview/dist/styles/iview.css'; // 使用 CSS
 import './assets/css/common.less';
@@ -23,12 +30,22 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+Vue.use(VueClipboard);
+
 Vue.config.productionTip = false;
 Vue.use(iView);
+Vue.use(MuseUI);
+Vue.use(mint);
 Vue.prototype.$http = Axios; // 类似于vue-resource的调用方法，之后可以在实例里直接用this.$http.get()等
 
+
+// 为代码文本提供高亮、缩进
+Vue.use(VueHighlightJS);
+// 为代码文本格式化
+Vue.prototype.$prettyDom = pretty;
+
 /* eslint-disable no-new */
-new Vue({
+window.myVue = new Vue({
   el: '#app',
   router,
   store,
