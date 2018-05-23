@@ -40,6 +40,15 @@ export default {
       editTempletModalShow: false,
       templetForm: {},
       modalTempletTitle: '新建页面',
+      copyedTemplet: {
+        id: '',
+        templet_name: '',
+        project_id: '',
+        creator: '',
+        descr: '',
+        detail: '',
+      },
+      copyTempletModalShow: false,
     };
   },
   mounted() {
@@ -208,8 +217,22 @@ export default {
         this.postProject('updateTemplet', '页面修改', this.templetForm);
       }
     },
-    onCopy() {
-      this.$Message.success('复制成功');
+    copyTempletModel(templet) {
+      this.copyedTemplet = templet;
+      this.copyedTemplet.id = '';
+      this.copyTempletModalShow = true;
+    },
+    async createTemplet() {
+      this.copyedTemplet.creator = this.userForm.id;
+      this.$http.post('/project/createTemplet', this.copyedTemplet).then((res) => {
+        if (res.data.success) { // 如果成功
+          this.copyedTemplet.id = res.data.success.id;
+          this.$Message.success('页面复制成功！');
+          this.getAllproject();
+        } else if (!res.data.success) {
+          this.$Message.error('页面复制失败！');
+        }
+      });
     },
     goToTemplet(template) {
       const url = `${location.origin}${location.pathname}#/designerPage?templateId=${template.id}`;

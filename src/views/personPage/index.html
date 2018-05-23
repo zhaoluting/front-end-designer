@@ -112,12 +112,10 @@
                       <Col span="3">{{usersMap[templet.creator]}}</Col>
                       <Col span="7">{{templet.descr}}</Col>
                       <Col span="7">
-                        <Button type="text" size="small" icon="ios-copy"
-                                v-clipboard:copy="templet.id"
-                                v-clipboard:success="onCopy">
-                          复制地址
+                        <Button type="text" size="small" icon="ios-copy" @click="copyTempletModel(templet)" v-if="item.setting">
+                            复制
                         </Button>
-                        <Button type="text" size="small" icon="edit" @click="openTempletModel('复制页面', item, templet)" v-if="item.setting">
+                        <Button type="text" size="small" icon="edit" @click="openTempletModel('修改页面', item, templet)" v-if="item.setting">
                             修改
                         </Button>
                         <Button type="text" size="small" icon="trash-a" @click="delItem('removeTemplet', templet.id)" v-if="item.setting">
@@ -190,6 +188,17 @@
       </Form-item>
       <Form-item label="描述">
         <Input v-model="templetForm.descr" placeholder="描述"></Input>
+      </Form-item>
+    </Form>
+  </Modal>
+  <Modal v-model="copyTempletModalShow" title="复制页面至"
+        @on-ok="createTemplet" @on-cancel="copyTempletModalShow = false">
+    <Form :model="copyedTemplet" :label-width="70">
+      <Form-item label="项目">
+        <Select v-model="copyedTemplet.project_id" placeholder="所属项目">
+          <Option v-for="(project, index) in projectList" :key="index"
+                :label="project.projectDetail.project_name" :value="project.project_id"></Option>
+        </Select>
       </Form-item>
     </Form>
   </Modal>
