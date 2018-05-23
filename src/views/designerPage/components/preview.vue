@@ -33,6 +33,10 @@
         <Button class="pre-but" type="primary" size="small" icon="edit" @click="editStyle">
           样式
         </Button>
+        <Button class="pre-but" type="primary" size="small"
+                icon="arrow-down-a" @click="fileDownload">
+          下载
+        </Button>
         <Button class="pre-but" type="primary" size="small" icon="code" @click="showCode">
           代码
         </Button>
@@ -609,6 +613,20 @@ export default {
         copiedComponents: [],
       });
       this.fresh();
+    },
+    fileDownload() {
+      const content = this.getSource(this.components);
+      const eleLink = document.createElement('a');
+      eleLink.download = 'demo.vue';
+      eleLink.style.display = 'none';
+      // 字符内容转变成blob地址
+      var blob = new Blob([content]);
+      eleLink.href = URL.createObjectURL(blob);
+      // 触发点击
+      document.body.appendChild(eleLink);
+      eleLink.click();
+      // 然后移除
+      document.body.removeChild(eleLink);
     },
   },
 };
